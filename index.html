@@ -46,6 +46,7 @@ input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-
   z-index:10;
 }
 .header-logo{height:38px;width:auto;object-fit:contain}
+.header-brand{display:flex;align-items:center}
 .header-tag{font-size:11px;font-weight:700;color:var(--grn);letter-spacing:.3px}
 
 /* ── SCROLL BODY ── */
@@ -121,29 +122,9 @@ input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-
 .contact-val{font-size:12px;font-weight:600;color:var(--ink1)}
 
 /* ── ENTER NUMBER CARD ── */
-.enter-card{background:#fff;padding:20px 16px;border-top:2px solid var(--grn)}
-.enter-card-title{font-size:16px;font-weight:800;color:var(--ink1);letter-spacing:-.3px;margin-bottom:3px}
-.enter-card-sub{font-size:12px;color:var(--ink3);margin-bottom:14px}
-.num-field{display:flex;align-items:center;background:#F5F5F5;border:1.5px solid var(--line);border-radius:10px;overflow:hidden;transition:border-color .18s,box-shadow .18s;min-height:52px}
-.num-field.foc{border-color:var(--grn);box-shadow:0 0 0 3px rgba(0,166,81,.10)}
-.num-field.ok{border-color:var(--grn);box-shadow:0 0 0 3px rgba(0,166,81,.10)}
-.num-field.err{border-color:#C00;box-shadow:0 0 0 3px rgba(200,0,0,.08)}
-.num-pre{display:flex;align-items:center;gap:6px;padding:0 12px 0 14px;border-right:1.5px solid var(--line);height:52px;flex-shrink:0;background:#fff}
 .num-flag{font-size:18px;line-height:1}
-.num-code{font-size:14px;font-weight:700;color:#333}
-#numInput{flex:1;min-width:0;font-size:20px;font-weight:700;color:var(--ink1);padding:0 14px;height:52px;letter-spacing:.04em;caret-color:var(--grn)}
-#numInput::placeholder{color:var(--ink4);font-size:13px;font-weight:400;letter-spacing:0}
-.num-hint{font-size:11px;color:var(--ink4);margin-top:7px;min-height:16px}
-.num-hint.ok{color:var(--grn);font-weight:600}
-.num-hint.err{color:#C00;font-weight:600}
-.spacer{height:100px;flex-shrink:0}
 
 /* ── PAY BAR ── */
-#payBar{flex:0 0 auto;display:none;padding:10px 16px max(16px,env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line);box-shadow:0 -2px 12px rgba(0,0,0,.08)}
-#payBar.show{display:block}
-.enter-btn{width:100%;min-height:52px;border-radius:999px;background:var(--grn);color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:var(--sh-grn);transition:transform .12s,background .12s;position:relative;overflow:hidden}
-.enter-btn:active{transform:scale(.97);background:var(--grn-dk)}
-.enter-btn:disabled{opacity:.45;box-shadow:none;background:#bbb;transform:none}
 .rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.22);transform:scale(0);animation:ripple .5s ease forwards}
 </style>
 </head>
@@ -152,11 +133,24 @@ input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-
 
   <!-- HEADER -->
   <div class="site-header">
-    <img class="header-logo"
-      src="https://eu-images.contentstack.com/v3/assets/blt0554f48052bb4620/blt684cdefbcad8ec0e/68d270a6f377720c7bdcdcda/banner-old-mutual.png"
-      alt="Old Mutual"
-      onerror="this.outerHTML='<span style=\'font-size:16px;font-weight:800;color:#003366\'>Old Mutual</span>'">
-    <span class="header-tag">O'mari</span>
+    <div class="header-brand">
+      <img class="header-logo"
+        src="https://eu-images.contentstack.com/v3/assets/blt0554f48052bb4620/blt684cdefbcad8ec0e/68d270a6f377720c7bdcdcda/banner-old-mutual.png"
+        alt="Old Mutual"
+        onerror="this.style.display='none';document.getElementById('logoFallback').style.display='flex'">
+      <div id="logoFallback" style="display:none;align-items:center;gap:6px">
+        <div style="width:36px;height:36px;border-radius:50%;background:#003366;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="18" fill="#00A651"/><text x="20" y="26" text-anchor="middle" font-size="18" font-weight="800" fill="#fff" font-family="sans-serif">O</text>
+          </svg>
+        </div>
+        <div>
+          <div style="font-size:14px;font-weight:800;color:#003366;line-height:1">Old Mutual</div>
+          <div style="font-size:10px;color:#00A651;font-weight:600">O'mari</div>
+        </div>
+      </div>
+    </div>
+    <span class="header-tag">Transact &amp; Win</span>
   </div>
 
   <!-- SCROLL BODY -->
@@ -178,6 +172,18 @@ input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-
     <!-- INTRO STRIP -->
     <div class="intro-strip">
       <div class="intro-text">Use your Omari USD or ZWG wallet and stand a chance to win amazing rewards, including a residential stand, trips to Cape Town or China, <strong>US$10,000 cash</strong>, fuel for a year, grocery vouchers, pharmacy vouchers, and many more exciting prizes.</div>
+    </div>
+
+
+    <!-- CTA BUTTON — top of page, always visible -->
+    <div style="padding:16px 16px 0">
+      <button onclick="window.goToLogin()" id="topCta"
+        style="width:100%;min-height:52px;border-radius:999px;background:var(--grn);color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:var(--sh-grn);border:none;cursor:pointer;font-family:inherit;position:relative;overflow:hidden">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+        Enter &amp; Check My Entries
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+      </button>
+      <div style="text-align:center;font-size:11px;color:var(--ink4);margin-top:7px">Tap to enter your O'mari number</div>
     </div>
 
     <!-- SECTION 1: Promotion Period -->
@@ -311,66 +317,22 @@ input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-
         onerror="this.style.display='none'">
     </div>
 
-    <!-- ENTER NUMBER -->
-    <div class="enter-card">
-      <div class="enter-card-title">Check Your Entries</div>
-      <div class="enter-card-sub">Enter your O'mari number to confirm participation</div>
-      <div class="num-field" id="numField">
-        <div class="num-pre">
-          <img src="https://eu-images.contentstack.com/v3/assets/bltdd392fd32dda3ce8/blt652fa4bd468b6c6a/65eedf0ce5630f040aca2115/flag-zimbabwe.svg"
-            width="20" height="20" alt="ZW" onerror="this.outerHTML='<span style=\'font-size:18px\'>🇿🇼</span>'">
-          <span class="num-code">+263</span>
-        </div>
-        <input id="numInput" type="tel" inputmode="numeric" pattern="[0-9]*" placeholder="774 707 707" maxlength="9" autocomplete="tel-national">
-      </div>
-      <div class="num-hint" id="numHint">Dial *707# or WhatsApp 0774 707 707 to register</div>
-    </div>
-
-    <div class="spacer"></div>
-  </div>
-
-  <!-- PAY BAR -->
-  <div id="payBar">
-    <button class="enter-btn" id="enterBtn" disabled onclick="goToLogin()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
-      <span id="btnLbl">Enter your number</span>
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
-    </button>
   </div>
 
 </div>
 <script>
 'use strict';
 function hap(t){try{if(navigator.vibrate)navigator.vibrate(t);}catch(e){}}
-var numOK=false,verTO=null;
-var numInput=document.getElementById('numInput');
-var numField=document.getElementById('numField');
-var numHint=document.getElementById('numHint');
-var payBar=document.getElementById('payBar');
-var enterBtn=document.getElementById('enterBtn');
-var btnLbl=document.getElementById('btnLbl');
+window.goToLogin=function(){hap(18);window.location.href='omari-login.html';};
 
-numInput.addEventListener('input',function(){
-  var v=this.value.replace(/\D/g,'').slice(0,9);
-  this.value=v;
-  clearTimeout(verTO);numOK=false;enterBtn.disabled=true;
-  if(!v.length){numField.className='num-field';numHint.className='num-hint';numHint.textContent="Dial *707# or WhatsApp 0774 707 707 to register";payBar.classList.remove('show');return;}
-  numField.className='num-field foc';payBar.classList.add('show');btnLbl.textContent='Enter your number';
-  if(v.length===9){
-    numHint.className='num-hint';numHint.textContent='Verifying…';
-    verTO=setTimeout(function(){
-      numOK=true;numField.className='num-field ok';numHint.className='num-hint ok';numHint.textContent="✓ O'mari number verified";
-      enterBtn.disabled=false;btnLbl.textContent='Confirm Entry';hap([8,30,8]);
-      var display='+263 '+v.slice(0,2)+'\u2022\u2022\u2022\u2022\u2022'+v.slice(-2);
-      sessionStorage.setItem('omariRecipient',JSON.stringify({raw:v,display:display}));
-    },800);
-  } else {numHint.className='num-hint';numHint.textContent="Enter your 9-digit O'mari number";}
-});
-function goToLogin(){if(!numOK)return;hap(18);window.location.href='omari-login.html';}
-numInput.addEventListener('focus',function(){numField.classList.add('foc');});
-numInput.addEventListener('blur',function(){if(!numOK&&!numInput.value)numField.classList.remove('foc');});
-document.querySelectorAll('.enter-btn').forEach(function(b){
-  b.addEventListener('pointerdown',function(e){var r=b.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2;var rip=document.createElement('span');rip.className='rip';rip.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;position:absolute;';b.appendChild(rip);rip.addEventListener('animationend',function(){rip.remove();});},{passive:true});
+// Ripple on CTA
+document.querySelectorAll('#topCta').forEach(function(b){
+  b.addEventListener('pointerdown',function(e){
+    var r=b.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2;
+    var rip=document.createElement('span');
+    rip.style.cssText='position:absolute;border-radius:50%;background:rgba(255,255,255,.22);transform:scale(0);animation:ripple .5s ease forwards;width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px';
+    b.appendChild(rip);rip.addEventListener('animationend',function(){rip.remove();});
+  },{passive:true});
 });
 </script>
 </body>

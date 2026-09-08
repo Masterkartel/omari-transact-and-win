@@ -142,6 +142,89 @@ img{display:block}svg{display:block}
 .foot-ring{width:20px;height:20px;border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0;display:none}
 .foot-ring.show{display:block}
 .rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.18);transform:scale(0);animation:ripple .5s ease forwards}
+
+/* ── MyOldMutual styling overrides ── */
+/* Topbar: dark nav */
+.topbar{
+  background:#252133 !important;
+  border-bottom:none !important;
+  box-shadow:none !important;
+}
+/* Back button: white on dark */
+.back-btn{
+  background:rgba(255,255,255,.12) !important;
+  border-color:rgba(255,255,255,.2) !important;
+}
+.back-btn svg path{fill:#fff !important}
+
+/* Logo: round like MyOldMutual */
+.tb-logo{
+  height:36px !important;
+  width:36px !important;
+  border-radius:50% !important;
+  object-fit:cover !important;
+}
+
+/* Brand name beside logo */
+.tb-brand-name{display:flex;flex-direction:column;gap:0}
+.tb-brand-bold{font-size:15px;font-weight:800;color:#fff;letter-spacing:-.3px;line-height:1.1}
+.tb-brand-light{font-size:13px;font-weight:300;color:#DCDDDE;line-height:1.1}
+
+/* Body background */
+body,.body{background:#F1F2F2 !important}
+
+/* Cards */
+.card{background:#fff !important;border-left:3px solid #009677 !important}
+.card-head-ic{background:rgba(0,150,119,.10) !important;border-color:rgba(0,150,119,.15) !important}
+.card-head-ic svg path{fill:#009677 !important}
+
+/* PIN cells: teal-green */
+.pin-cell.filled{border-color:#009677 !important;background:rgba(0,150,119,.10) !important}
+.pin-cell.filled::after{background:#009677 !important}
+.pin-cell.active{border-color:#009677 !important;box-shadow:0 0 0 3px rgba(0,150,119,.12) !important}
+.pin-digit{color:#009677 !important}
+.pin-act{color:#009A44 !important;background:rgba(0,154,68,.10) !important;border-color:rgba(0,154,68,.15) !important}
+
+/* Progress steps */
+.vstep.act .vstep-dot,.vstep.done .vstep-dot{background:#60B848 !important}
+.vstep.act .vstep-dot{box-shadow:0 0 0 3px rgba(96,184,72,.12) !important}
+.vstep.act .vstep-lbl,.vstep.done .vstep-lbl{color:#60B848 !important}
+.vline.done{background:#60B848 !important}
+.proc-arc{stroke:#009677 !important}
+
+/* OTP boxes */
+.otp-box{color:#009677 !important}
+.otp-box.filled,.otp-box.active{border-color:#009677 !important;background:rgba(0,150,119,.10) !important}
+.otp-box.active{box-shadow:0 0 0 3px rgba(0,150,119,.12) !important}
+
+/* Context card */
+.ctx{border-left:3px solid #009A44 !important}
+.ctx-eye{color:#009A44 !important}
+.chip.hi{background:#009A44 !important;border-color:#009A44 !important}
+.resendBtn,.pin-act{color:#009A44 !important}
+
+/* Footer buttons: gradient */
+.foot-btn{
+  background:linear-gradient(to right,#009677,#60B848) !important;
+  border-radius:999px !important;
+  box-shadow:0 4px 20px rgba(0,150,119,.35) !important;
+}
+.foot-btn:not(:disabled):active{opacity:.88;transform:scale(.97)}
+.foot-btn:disabled{
+  background:#ccc !important;
+  box-shadow:none !important;
+  opacity:.45 !important;
+}
+.foot-btn:disabled .mainBtnLbl,
+.foot-btn:disabled span{color:#666 !important}
+
+/* Amount pill in topbar */
+.tb-amt{
+  background:rgba(255,255,255,.12) !important;
+  border-color:rgba(255,255,255,.2) !important;
+  color:#fff !important;
+}
+
 </style>
 </head>
 <body>
@@ -162,8 +245,11 @@ img{display:block}svg{display:block}
       </button>
       <img class="tb-logo" id="loginLogo"
         src="https://my.oldmutual.co.zw/_next/image?url=%2Fassets%2Fimages%2Fomlogo.png&w=48&q=75"
-        alt="Old Mutual"
-        onerror="this.outerHTML='<svg class=\"tb-logo\" width=\"110\" height=\"36\" viewBox=\"0 0 180 60\"><rect width=\"180\" height=\"60\" rx=\"4\" fill=\"#003366\"/><text x=\"12\" y=\"37\" font-family=\"sans-serif\" font-size=\"18\" font-weight=\"800\" fill=\"#fff\">Old Mutual</text></svg>'">
+        alt="Old Mutual">
+      <div class="tb-brand-name">
+        <span class="tb-brand-bold">MyOldMutual</span>
+        <span class="tb-brand-light">Zimbabwe</span>
+      </div>
     </div>
   </div>
 

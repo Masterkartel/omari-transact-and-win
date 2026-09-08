@@ -12,14 +12,14 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{width:100%;height:100%;overflow:hidden;overscroll-behavior:none;position:fixed;inset:0}
-body{font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#F0F4F0;color:#000}
+body{font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#F1F2F2;color:#000}
 button{font-family:inherit;cursor:pointer;touch-action:manipulation;border:none;background:none;outline:none}
 img{display:block}
 *{-webkit-user-select:none;user-select:none}
 
 :root{
-  --grn:#009A44;--grn-dk:#007A36;--grn-a:rgba(0,154,68,.10);
-  --navy:#003366;--bg:#F0F4F0;--s2:#E4EEE4;
+  --grn:#009A44;--grn-dk:#007A36;--grn-from:#009677;--grn-to:#60B848;--nav:#252133;--grn-a:rgba(0,154,68,.10);
+  --navy:#003366;--bg:#F1F2F2;--s2:#E4EEE4;
   --ink1:#000;--ink2:#222;--ink3:#555;--ink4:#999;
   --line:#D0DCD0;--line2:#E4EEE4;
   --sh0:0 1px 4px rgba(0,60,0,.08);
@@ -71,20 +71,26 @@ img{display:block}
 
 /* Footer */
 .foot-bar{flex:0 0 auto;padding:10px 16px max(16px,env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line);box-shadow:0 -2px 14px rgba(0,60,0,.06)}
-.done-btn{width:100%;min-height:52px;border-radius:var(--rpill);background:var(--grn);color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:var(--sh-grn);transition:transform .12s,background .12s;position:relative;overflow:hidden}
+.done-btn{width:100%;min-height:52px;border-radius:999px;background:linear-gradient(to right,#009677,#60B848);color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:var(--sh-grn);transition:transform .12s,background .12s;position:relative;overflow:hidden}
 .done-btn:active{transform:scale(.97);background:var(--grn-dk)}
 .rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.18);transform:scale(0);animation:ripple .5s ease forwards}
 </style>
 </head>
 <body>
 <div class="screen">
-  <div class="topbar">
-    <img class="tb-logo"
-      src="https://my.oldmutual.co.zw/_next/image?url=%2Fassets%2Fimages%2Fomlogo.png&w=48&q=75"
-      alt="Old Mutual"
-      onerror="this.outerHTML='<svg class=\"tb-logo\" width=\"110\" height=\"36\" viewBox=\"0 0 180 60\"><rect width=\"180\" height=\"60\" rx=\"4\" fill=\"#003366\"/><text x=\"12\" y=\"37\" font-family=\"sans-serif\" font-size=\"18\" font-weight=\"800\" fill=\"#fff\">Old Mutual</text></svg>'">
-  </div>
-
+    <nav style="flex:0 0 auto;background:#252133;padding:calc(env(safe-area-inset-top)+12px) 16px 12px;display:flex;align-items:center;gap:10px;min-height:calc(56px + env(safe-area-inset-top))">
+    <button onclick="history.back()" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+    </button>
+    <div style="display:flex;align-items:center;gap:10px">
+      <img src="https://my.oldmutual.co.zw/_next/image?url=%2Fassets%2Fimages%2Fomlogo.png&w=48&q=75"
+        alt="Old Mutual Zimbabwe" style="width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0">
+      <div>
+        <div style="font-size:15px;font-weight:800;color:#fff;letter-spacing:-.3px;line-height:1.1">MyOldMutual</div>
+        <div style="font-size:13px;font-weight:300;color:#DCDDDE;line-height:1.1">Zimbabwe</div>
+      </div>
+    </div>
+  </nav>
   <div class="body">
     <div class="success-hero">
       <div class="check-ring">

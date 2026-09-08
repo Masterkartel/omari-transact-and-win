@@ -18,12 +18,12 @@ img{display:block}
 *{-webkit-user-select:none;user-select:none}
 
 :root{
-  --grn:#00A651;--grn-dk:#007A3D;--grn-a:rgba(0,166,81,.10);
+  --grn:#009A44;--grn-dk:#007A36;--grn-a:rgba(0,154,68,.10);
   --navy:#003366;--bg:#F0F4F0;--s2:#E4EEE4;
   --ink1:#000;--ink2:#222;--ink3:#555;--ink4:#999;
   --line:#D0DCD0;--line2:#E4EEE4;
   --sh0:0 1px 4px rgba(0,60,0,.08);
-  --sh-grn:0 4px 20px rgba(0,166,81,.28);
+  --sh-grn:0 4px 20px rgba(0,154,68,.28);
   --r16:16px;--r20:20px;--rpill:999px;
   --ease:cubic-bezier(.22,1,.36,1);
 }
@@ -44,7 +44,7 @@ img{display:block}
 /* Success hero */
 .success-hero{background:var(--navy);border-radius:var(--r20);padding:24px 20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;position:relative;overflow:hidden}
 .success-hero::before{content:'';position:absolute;right:-30px;top:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
-.check-ring{width:68px;height:68px;border-radius:50%;background:var(--grn);display:flex;align-items:center;justify-content:center;animation:checkPop .4s var(--ease) .1s both;position:relative;z-index:1;box-shadow:0 4px 20px rgba(0,166,81,.4)}
+.check-ring{width:68px;height:68px;border-radius:50%;background:var(--grn);display:flex;align-items:center;justify-content:center;animation:checkPop .4s var(--ease) .1s both;position:relative;z-index:1;box-shadow:0 4px 20px rgba(0,154,68,.4)}
 .success-title{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.4px;position:relative;z-index:1}
 .success-sub{font-size:12px;color:rgba(255,255,255,.7);line-height:1.55;position:relative;z-index:1}
 .success-ref{font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,.45);margin-top:2px;position:relative;z-index:1}
@@ -67,7 +67,7 @@ img{display:block}
 .next-title{font-size:13px;font-weight:800;color:var(--ink1);margin-bottom:10px}
 .next-list{display:flex;flex-direction:column;gap:8px}
 .next-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--ink2);line-height:1.5}
-.next-dot{width:20px;height:20px;border-radius:50%;background:var(--grn-a);border:1px solid rgba(0,166,81,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;font-weight:800;color:var(--grn)}
+.next-dot{width:20px;height:20px;border-radius:50%;background:var(--grn-a);border:1px solid rgba(0,154,68,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;font-weight:800;color:var(--grn)}
 
 /* Footer */
 .foot-bar{flex:0 0 auto;padding:10px 16px max(16px,env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line);box-shadow:0 -2px 14px rgba(0,60,0,.06)}
@@ -82,8 +82,7 @@ img{display:block}
     <img class="tb-logo"
       src="https://eu-images.contentstack.com/v3/assets/blt0554f48052bb4620/blt684cdefbcad8ec0e/68d270a6f377720c7bdcdcda/banner-old-mutual.png"
       alt="Old Mutual"
-      onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-    <span class="tb-logo-txt" style="display:none">Old Mutual</span>
+      onerror="this.outerHTML='<svg class=\"tb-logo\" width=\"110\" height=\"36\" viewBox=\"0 0 180 60\"><rect width=\"180\" height=\"60\" rx=\"4\" fill=\"#003366\"/><text x=\"12\" y=\"37\" font-family=\"sans-serif\" font-size=\"18\" font-weight=\"800\" fill=\"#fff\">Old Mutual</text></svg>'">
   </div>
 
   <div class="body">
@@ -123,7 +122,7 @@ img{display:block}
   </div>
 
   <div class="foot-bar">
-    <button class="done-btn" id="doneBtn" onclick="window.location.href='omari-index.html'">
+    <button class="done-btn" id="doneBtn" onclick="window.location.href='index.html'">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
       Back to Home
     </button>

@@ -15,170 +15,187 @@
 html,body{width:100%;height:100%;overflow:hidden;overscroll-behavior:none;position:fixed;inset:0}
 body{font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#fff;color:#000}
 button{font-family:inherit;cursor:pointer;touch-action:manipulation;border:none;background:none;outline:none;-webkit-user-select:none;user-select:none}
-img{display:block}
+img{display:block;max-width:100%}
 input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-select:text!important;user-select:text!important}
 *{-webkit-user-select:none;user-select:none}
 
+/* OM Brand colours */
 :root{
-  --grn:#00A651;--grn-dk:#007A3D;--grn-a:rgba(0,166,81,.12);
-  --navy:#003366;--line:#E8E8E8;--line2:#F0F0F0;
-  --ink1:#000;--ink2:#222;--ink3:#555;--ink4:#999;
+  --grn:#009A44;
+  --grn-dk:#007A36;
+  --grn-lt:#E8F5EE;
+  --grn-a:rgba(0,154,68,.10);
+  --navy:#003366;
+  --navy-lt:#EEF3F8;
+  --line:#E2E2E2;
+  --line2:#F0F0F0;
+  --ink1:#000;--ink2:#1A1A1A;--ink3:#555;--ink4:#999;
+  --sh-grn:0 4px 18px rgba(0,154,68,.30);
 }
 
-@keyframes pgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes pgIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 @keyframes ripple{to{transform:scale(4);opacity:0}}
-@keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 
-#app{display:flex;flex-direction:column;width:100%;height:100dvh;overflow:hidden;animation:pgIn .22s ease both}
+#app{display:flex;flex-direction:column;width:100%;height:100dvh;overflow:hidden;animation:pgIn .2s ease both}
 
-/* ── TOPBAR ── */
-.topbar{flex:0 0 auto;background:#fff;border-bottom:1px solid var(--line);padding:calc(env(safe-area-inset-top)+8px) 20px 8px;display:flex;align-items:center;justify-content:space-between;min-height:calc(56px + env(safe-area-inset-top))}
-.logo-wrap{display:flex;align-items:center}
-.logo-img{height:44px;width:auto;object-fit:contain;display:block}
-.logo-text{font-size:17px;font-weight:800;color:var(--navy);letter-spacing:-.3px}
+/* ── TOPBAR — OM style: white, border bottom ── */
+.topbar{
+  flex:0 0 auto;
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  padding:calc(env(safe-area-inset-top)+10px) 20px 10px;
+  display:flex;align-items:center;
+  min-height:calc(60px + env(safe-area-inset-top));
+}
+.logo{height:40px;width:auto;object-fit:contain;display:block}
 
-/* ── BODY ── */
+/* ── SCROLL BODY ── */
 #body{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;background:#fff}
 #body::-webkit-scrollbar{display:none}
 
-/* ── HERO ── */
-.hero{position:relative;width:100%;background:var(--navy);overflow:hidden}
-.hero-img{width:100%;display:block;object-fit:cover;height:200px;object-position:center top}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.05) 30%,rgba(0,0,0,.55) 100%)}
-.hero-text{position:absolute;bottom:0;left:0;right:0;padding:16px 20px}
-.hero-h1{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.5px;line-height:1.15;text-shadow:0 2px 8px rgba(0,0,0,.4)}
-.hero-period{font-size:11px;color:rgba(255,255,255,.8);font-weight:500;margin-top:5px}
+/* ── HERO — full bleed image ── */
+.hero{position:relative;background:var(--navy)}
+.hero-img{width:100%;height:220px;object-fit:cover;object-position:center top;display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(0,0,0,.6)100%)}
+.hero-caption{position:absolute;bottom:0;left:0;right:0;padding:20px}
+.hero-h1{font-size:24px;font-weight:800;color:#fff;letter-spacing:-.5px;line-height:1.1;text-shadow:0 2px 8px rgba(0,0,0,.3)}
+.hero-period{font-size:12px;color:rgba(255,255,255,.85);font-weight:500;margin-top:6px}
 
-/* ── GREEN INTRO ── */
-.intro{background:var(--grn);padding:14px 20px}
-.intro p{font-size:13px;color:#fff;line-height:1.65;font-weight:400}
-.intro strong{font-weight:700}
+/* ── GREEN INTRO BAND ── */
+.intro-band{background:var(--grn);padding:16px 20px}
+.intro-band p{font-size:13px;color:#fff;line-height:1.65;font-weight:400}
+.intro-band strong{font-weight:700}
 
-/* ── CTA BUTTON ── */
-.cta-wrap{padding:16px 20px 8px}
+/* ── CTA ── */
+.cta-wrap{padding:20px 20px 12px;background:#fff}
 .cta-btn{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  width:100%;min-height:50px;border-radius:999px;
+  width:100%;min-height:50px;border-radius:4px;
   background:var(--navy);color:#fff;
-  font-size:15px;font-weight:700;
-  border:none;cursor:pointer;
-  box-shadow:0 4px 16px rgba(0,51,102,.30);
-  transition:background .12s,transform .1s;
+  font-size:15px;font-weight:700;letter-spacing:.1px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 2px 8px rgba(0,51,102,.25);
   position:relative;overflow:hidden;
+  transition:background .12s,transform .1s;
   -webkit-tap-highlight-color:transparent;
 }
-.cta-btn:active{background:#002244;transform:scale(.97)}
-.cta-sub{text-align:center;font-size:11px;color:var(--ink4);margin-top:6px}
+.cta-btn:active{background:#002244;transform:scale(.98)}
 
-/* ── SECTION ── */
-.sec{padding:20px 20px}
+/* ── SECTIONS — matching OM split layout ── */
+.sec{padding:24px 20px;background:#fff}
+.sec.alt{background:#F5F5F5}
 .sec+.sec{border-top:1px solid var(--line)}
-.sec-alt{background:#F7F7F7}
-.sec-eyebrow{font-size:10px;font-weight:700;color:var(--grn);letter-spacing:.7px;text-transform:uppercase;margin-bottom:5px}
-.sec-h2{font-size:19px;font-weight:800;color:var(--ink1);letter-spacing:-.3px;line-height:1.2;margin-bottom:10px}
-.sec-p{font-size:13px;color:var(--ink2);line-height:1.65}
-.sec-p strong{color:var(--ink1);font-weight:700}
-.sec-img{width:100%;border-radius:10px;display:block;margin-top:14px;object-fit:cover;max-height:200px}
 
-/* ── INFO BOX ── */
-.info-box{margin-top:12px;padding:11px 14px;background:#F0FAF4;border-left:3px solid var(--grn);border-radius:0 6px 6px 0;font-size:13px;color:var(--ink2);line-height:1.6}
-.info-box strong{color:var(--ink1)}
+.sec-inner{display:flex;flex-direction:column;gap:16px}
+.sec-eyebrow{font-size:10px;font-weight:700;color:var(--grn);letter-spacing:.8px;text-transform:uppercase}
+.sec-h2{font-size:20px;font-weight:800;color:var(--ink1);letter-spacing:-.3px;line-height:1.2;margin-top:4px}
+.sec-body{font-size:14px;color:var(--ink2);line-height:1.7}
+.sec-body strong{color:var(--ink1);font-weight:700}
+.sec-img{width:100%;border-radius:6px;display:block;object-fit:cover;max-height:220px}
+
+/* ── INFO CALLOUT ── */
+.callout{margin-top:12px;padding:12px 16px;background:var(--grn-lt);border-left:3px solid var(--grn);border-radius:0 4px 4px 0;font-size:13px;color:var(--ink2);line-height:1.65}
+.callout strong{color:var(--ink1)}
 
 /* ── BULLET LIST ── */
-.blist{margin-top:10px;display:flex;flex-direction:column;gap:9px}
-.bitem{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--ink2);line-height:1.55}
-.bdot{width:8px;height:8px;border-radius:50%;background:var(--grn);flex-shrink:0;margin-top:4px}
+.blist{margin-top:12px;display:flex;flex-direction:column;gap:10px}
+.bitem{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--ink2);line-height:1.6}
+.bdot{width:8px;height:8px;border-radius:50%;background:var(--grn);flex-shrink:0;margin-top:5px}
 .bitem b{color:var(--ink1);font-weight:700}
 
 /* ── GRAND PRIZE ── */
-.grand{background:var(--navy);border-radius:10px;padding:16px;display:flex;align-items:center;gap:14px;margin-bottom:14px}
-.grand-ic{font-size:38px;flex-shrink:0}
-.grand-title{font-size:16px;font-weight:800;color:#fff;letter-spacing:-.2px}
-.grand-sub{font-size:11px;color:rgba(255,255,255,.65);margin-top:3px;line-height:1.5}
+.grand{background:var(--navy);border-radius:6px;padding:18px;display:flex;align-items:center;gap:14px;margin-top:16px}
+.grand em{font-size:40px;font-style:normal;flex-shrink:0}
+.grand-t{font-size:17px;font-weight:800;color:#fff;letter-spacing:-.2px}
+.grand-s{font-size:11px;color:rgba(255,255,255,.65);margin-top:4px;line-height:1.5}
 
 /* ── PRIZE GRID ── */
-.prize-label{font-size:10px;font-weight:700;color:var(--ink4);letter-spacing:.5px;text-transform:uppercase;margin:14px 0 8px}
+.ptitle{font-size:11px;font-weight:700;color:var(--ink4);letter-spacing:.5px;text-transform:uppercase;margin:18px 0 8px}
 .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.pcard{background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 10px;text-align:center}
-.pcard.full{grid-column:1/-1;display:flex;align-items:center;gap:10px;text-align:left}
-.pc-em{font-size:22px;margin-bottom:3px}
-.pc-name{font-size:11px;font-weight:600;color:var(--ink1);line-height:1.35}
-.pc-tier{font-size:9px;font-weight:600;color:var(--grn);text-transform:uppercase;letter-spacing:.3px;margin-top:2px}
+.pcard{background:#fff;border:1px solid var(--line);border-radius:6px;padding:14px 10px;text-align:center}
+.pcard.full{grid-column:1/-1;display:flex;align-items:center;gap:12px;text-align:left;padding:12px 14px}
+.pcard .em{font-size:24px;margin-bottom:5px}
+.pcard .pname{font-size:12px;font-weight:600;color:var(--ink1);line-height:1.3}
+.pcard .ptier{font-size:10px;color:var(--grn);font-weight:600;text-transform:uppercase;letter-spacing:.3px;margin-top:3px}
 
 /* ── OUTLETS ── */
-.outlets{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.outlet{background:#EEF2F8;color:var(--navy);font-size:11px;font-weight:600;padding:5px 12px;border-radius:999px;border:1px solid rgba(0,51,102,.12)}
+.outlets{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.outlet{background:var(--navy-lt);color:var(--navy);font-size:11px;font-weight:600;padding:6px 14px;border-radius:4px;border:1px solid rgba(0,51,102,.12)}
 
 /* ── CONTACTS ── */
-.clist{margin-top:10px;display:flex;flex-direction:column;gap:10px}
-.crow{display:flex;align-items:center;gap:10px}
-.cic{width:34px;height:34px;border-radius:50%;background:#F0FAF4;border:1px solid rgba(0,166,81,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.clbl{font-size:10px;color:var(--ink4);font-weight:500}
-.cval{font-size:12px;font-weight:600;color:var(--ink1)}
+.clist{margin-top:14px;display:flex;flex-direction:column;gap:12px}
+.crow{display:flex;align-items:center;gap:12px}
+.cic{width:36px;height:36px;border-radius:50%;background:var(--grn-lt);border:1px solid rgba(0,154,68,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.clbl{font-size:10px;color:var(--ink4)}
+.cval{font-size:13px;font-weight:600;color:var(--ink1)}
 
-/* ── BOTTOM SHEET ── */
-#scrim{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.45);display:none;opacity:0;transition:opacity .25s}
+/* ── ENTRY OVERLAY — full screen ── */
+#overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.5);display:none;opacity:0;transition:opacity .25s}
 #sheet{
-  position:fixed;left:0;right:0;bottom:0;z-index:101;
-  background:#fff;border-radius:20px 20px 0 0;
-  padding:0 0 max(24px,env(safe-area-inset-bottom));
-  box-shadow:0 -8px 40px rgba(0,0,0,.18);
+  position:fixed;left:0;right:0;bottom:0;top:0;z-index:201;
+  background:#fff;
   display:none;transform:translateY(100%);
-  transition:transform .3s cubic-bezier(.22,1,.36,1);
+  transition:transform .32s cubic-bezier(.22,1,.36,1);
+  display:none;flex-direction:column;
+  padding-bottom:env(safe-area-inset-bottom);
 }
-.sheet-drag{width:36px;height:4px;border-radius:2px;background:#ddd;margin:12px auto 0}
-.sheet-inner{padding:16px 20px 0}
-.sheet-title{font-size:18px;font-weight:800;color:#000;letter-spacing:-.3px;margin-bottom:3px}
-.sheet-sub{font-size:12px;color:#888;margin-bottom:16px}
-.nfield{display:flex;align-items:center;background:#fff;border:2px solid #ddd;border-radius:12px;overflow:hidden;height:56px;transition:border-color .18s,box-shadow .18s}
-.nfield.foc{border-color:var(--grn);box-shadow:0 0 0 3px rgba(0,166,81,.12)}
-.nfield.ok{border-color:var(--grn);box-shadow:0 0 0 3px rgba(0,166,81,.12)}
-.npre{display:flex;align-items:center;gap:6px;padding:0 12px 0 14px;border-right:2px solid #eee;height:100%;flex-shrink:0;background:#f8f8f8}
-.ncode{font-size:14px;font-weight:700;color:#333}
-#ni{flex:1;min-width:0;font-size:22px;font-weight:700;color:#000;padding:0 16px;height:100%;background:#fff;caret-color:var(--grn);letter-spacing:.05em;font-family:'DM Sans',sans-serif;-webkit-user-select:text!important;user-select:text!important}
-#ni::placeholder{color:#ccc;font-size:14px;font-weight:400;letter-spacing:0}
-#nhint{font-size:11px;color:#999;margin-top:7px;min-height:16px;transition:color .15s}
+#sheet.open{transform:translateY(0)}
+
+.sheet-header{
+  background:var(--navy);
+  padding:calc(env(safe-area-inset-top)+16px) 20px 16px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+}
+.sheet-header h2{font-size:18px;font-weight:800;color:#fff;letter-spacing:-.3px}
+.sheet-close{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;line-height:1;flex-shrink:0;cursor:pointer}
+
+.sheet-body{flex:1;padding:24px 20px;display:flex;flex-direction:column;gap:16px;overflow-y:auto}
+.sheet-desc{font-size:14px;color:var(--ink2);line-height:1.65}
+
+/* Number field — large and clear */
+.nwrap{display:flex;flex-direction:column;gap:8px}
+.nwrap label{font-size:12px;font-weight:600;color:var(--ink3);letter-spacing:.2px}
+.nfield{display:flex;align-items:center;background:#fff;border:2px solid var(--line);border-radius:6px;overflow:hidden;height:60px;transition:border-color .18s,box-shadow .18s}
+.nfield.foc{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-a)}
+.nfield.ok{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-a)}
+.nfield.err{border-color:#C00;box-shadow:0 0 0 3px rgba(200,0,0,.08)}
+.npre{display:flex;align-items:center;gap:8px;padding:0 14px 0 16px;border-right:2px solid var(--line2);height:100%;flex-shrink:0;background:#FAFAFA}
+.nflag{font-size:22px;line-height:1}
+.ncode{font-size:16px;font-weight:700;color:var(--ink2)}
+#ni{flex:1;min-width:0;font-size:24px;font-weight:700;color:#000;padding:0 16px;height:100%;background:#fff;caret-color:var(--grn);letter-spacing:.06em;font-family:'DM Sans',sans-serif;-webkit-user-select:text!important;user-select:text!important}
+#ni::placeholder{color:#ccc;font-size:16px;font-weight:400;letter-spacing:0}
+#nhint{font-size:12px;min-height:18px;color:var(--ink4);transition:color .15s}
 #nhint.ok{color:var(--grn);font-weight:600}
-.sheet-btn{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  width:100%;min-height:52px;border-radius:999px;
+#nhint.err{color:#C00;font-weight:600}
+
+/* Submit button */
+.sheet-submit{
+  width:100%;min-height:54px;border-radius:4px;
   background:var(--grn);color:#fff;
-  font-size:15px;font-weight:700;border:none;cursor:pointer;
-  box-shadow:0 4px 16px rgba(0,166,81,.28);
-  margin-top:14px;transition:opacity .15s,transform .1s;
-  position:relative;overflow:hidden;
+  font-size:16px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:var(--sh-grn);border:none;cursor:pointer;
   font-family:'DM Sans',sans-serif;
+  transition:background .12s,transform .1s,opacity .15s;
+  position:relative;overflow:hidden;
   -webkit-tap-highlight-color:transparent;
 }
-.sheet-btn:disabled{opacity:.4;box-shadow:none;cursor:not-allowed}
-.sheet-btn:not(:disabled):active{transform:scale(.97);background:var(--grn-dk)}
+.sheet-submit:disabled{opacity:.4;box-shadow:none;cursor:not-allowed}
+.sheet-submit:not(:disabled):active{background:var(--grn-dk);transform:scale(.98)}
 
-.rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.22);transform:scale(0);animation:ripple .5s ease forwards}
-
-/* Responsive */
-@media(min-width:600px){
-  #app{max-width:440px;margin:0 auto;box-shadow:0 0 60px rgba(0,0,0,.12)}
-  body{background:#eee}
-}
-@media(min-width:900px){
-  body{background:linear-gradient(135deg,#003366,#00A651);display:flex;align-items:center;justify-content:center;min-height:100vh}
-  #app{max-width:420px;width:420px;height:min(820px,96vh);border-radius:40px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.4)}
-}
+.rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.25);transform:scale(0);animation:ripple .5s ease forwards}
 </style>
 </head>
 <body>
 <div id="app">
 
-  <!-- TOPBAR -->
+  <!-- TOPBAR — OM logo only -->
   <div class="topbar">
-    <div class="logo-wrap">
-      <img class="logo-img"
-        src="https://eu-images.contentstack.com/v3/assets/blt0554f48052bb4620/blt684cdefbcad8ec0e/68d270a6f377720c7bdcdcda/banner-old-mutual.png"
-        alt="Old Mutual"
-        id="logoImg"
-        onerror="this.style.display='none';document.getElementById('logoTxt').style.display='block'">
-      <span class="logo-text" id="logoTxt" style="display:none">Old Mutual</span>
-    </div>
+    <img class="logo" id="omLogo"
+      src="https://eu-images.contentstack.com/v3/assets/blt0554f48052bb4620/blt684cdefbcad8ec0e/68d270a6f377720c7bdcdcda/banner-old-mutual.png"
+      alt="Old Mutual">
   </div>
 
   <!-- BODY -->
@@ -188,17 +205,16 @@ input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-
     <div class="hero">
       <img class="hero-img"
         src="https://eu-images.contentstack.com/v3/assets/bltdd392fd32dda3ce8/blt88bc7157d720f99d/6a42252aa6d47541c00591af/Transact_and_Win_1312x540.webp"
-        alt="Transact and Win"
-        onerror="this.style.minHeight='180px'">
+        alt="Omari Transact and Win">
       <div class="hero-overlay"></div>
-      <div class="hero-text">
+      <div class="hero-caption">
         <div class="hero-h1">Transact &amp; Win<br>KaSoft Life! 🏆</div>
         <div class="hero-period">1 June – 30 September 2026</div>
       </div>
     </div>
 
-    <!-- GREEN INTRO -->
-    <div class="intro">
+    <!-- GREEN INTRO BAND -->
+    <div class="intro-band">
       <p>Use your Omari USD or ZWG wallet and stand a chance to win amazing rewards, including a residential stand, trips to Cape Town or China, <strong>US$10,000 cash</strong>, fuel for a year, grocery vouchers, pharmacy vouchers, and many more exciting prizes.</p>
     </div>
 
@@ -207,215 +223,259 @@ input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-
       <button class="cta-btn" id="ctaBtn">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
         Enter &amp; Check My Entries
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
       </button>
-      <div class="cta-sub">Tap to enter your O'mari number</div>
     </div>
 
-    <!-- S1: Promotion Period -->
+    <!-- S1: Promotion Period — image RIGHT -->
     <div class="sec">
-      <div class="sec-eyebrow">Promotion</div>
-      <h2 class="sec-h2">Promotion Period</h2>
-      <p class="sec-p">The promotion is valid from <strong>1 June – 30 September 2026.</strong> This is four months of cashing in, transacting, winning exciting rewards, and living KaSoft Life!</p>
-      <div class="info-box"><strong>Who Can Enter?</strong><br>Here are the eligibility details below:</div>
-      <div class="blist">
-        <div class="bitem"><div class="bdot"></div>Open to all <b>Zimbabwean residents</b> aged 18 and above</div>
-        <div class="bitem"><div class="bdot"></div>You must be registered on the <b>Omari wallet</b> and hold a valid national ID, passport, or driver's license</div>
-        <div class="bitem"><div class="bdot"></div>Your wallet must be active</div>
-      </div>
-      <img class="sec-img"
-        src="https://eu-images.contentstack.com/v3/assets/bltdd392fd32dda3ce8/blt872c5733159b392f/6a42252ae749ef0740a0192b/Transact_and_Win_3.webp"
-        alt="Promotion Period" onerror="this.style.display='none'">
-    </div>
-
-    <!-- S2: How to Enter -->
-    <div class="sec sec-alt">
-      <div class="sec-eyebrow">How to Enter</div>
-      <h2 class="sec-h2">Here is how to enter</h2>
-      <p class="sec-p">Simply cash in or use at least <strong>US$200</strong> (or ZWG equivalent) using your Omari Wallet through:</p>
-      <div class="blist">
-        <div class="bitem"><div class="bdot"></div>Cashing in at our various outlets or agents</div>
-        <div class="bitem"><div class="bdot"></div>ZIPIT – Receive (USD &amp; ZWG)</div>
-        <div class="bitem"><div class="bdot"></div>Receive money from abroad</div>
-        <div class="bitem"><div class="bdot"></div>Omari Visa Card Payments (Swipe, Tap &amp; Online Payments)</div>
-        <div class="bitem"><div class="bdot"></div>ZimSwitch Card Payments (Swipe, Tap &amp; Online Payments)</div>
-      </div>
-      <div class="info-box">The more you spend, the more entries you earn into <strong>daily, weekly, monthly,</strong> and <strong>grand prize</strong> draws.</div>
-      <img class="sec-img"
-        src="https://eu-images.contentstack.com/v3/assets/bltdd392fd32dda3ce8/blt391b6fe08a49304e/6a42252972bc69b81bd43e1f/Transact_and_Win_1.webp"
-        alt="How to Enter" onerror="this.style.display='none'">
-    </div>
-
-    <!-- S3: Prizes -->
-    <div class="sec">
-      <div class="sec-eyebrow">Prizes</div>
-      <h2 class="sec-h2">What can you win?</h2>
-      <div class="grand">
-        <div class="grand-ic">🏠</div>
+      <div class="sec-inner">
         <div>
-          <div class="grand-title">Residential Stand</div>
-          <div class="grand-sub">US$10,000 cash · Trip to South Africa for Two · Trip to China</div>
+          <div class="sec-eyebrow">Promotion</div>
+          <h2 class="sec-h2">Promotion Period</h2>
+          <p class="sec-body">The promotion is valid from <strong>1 June – 30 September 2026.</strong> This is four months of cashing in, transacting, winning exciting rewards, and living KaSoft Life!</p>
+          <div class="callout"><strong>Who Can Enter?</strong><br>Here are the eligibility details below:</div>
+          <div class="blist">
+            <div class="bitem"><div class="bdot"></div>Open to all <b>Zimbabwean residents</b> aged 18 and above</div>
+            <div class="bitem"><div class="bdot"></div>You must be registered on the <b>Omari wallet</b> and hold a valid national ID, passport, or driver's license</div>
+            <div class="bitem"><div class="bdot"></div>Your wallet must be active</div>
+          </div>
+        </div>
+        <img class="sec-img"
+          src="https://eu-images.contentstack.com/v3/assets/bltdd392fd32dda3ce8/blt872c5733159b392f/6a42252ae749ef0740a0192b/Transact_and_Win_3.webp"
+          alt="Promotion Period" onerror="this.style.display='none'">
+      </div>
+    </div>
+
+    <!-- S2: How to Enter — image LEFT (alt bg) -->
+    <div class="sec alt">
+      <div class="sec-inner">
+        <img class="sec-img"
+          src="https://eu-images.contentstack.com/v3/assets/bltdd392fd32dda3ce8/blt391b6fe08a49304e/6a42252972bc69b81bd43e1f/Transact_and_Win_1.webp"
+          alt="How to Enter" onerror="this.style.display='none'">
+        <div>
+          <div class="sec-eyebrow">How to Enter</div>
+          <h2 class="sec-h2">Here is how to enter</h2>
+          <p class="sec-body">Simply cash in or use at least <strong>US$200</strong> (or ZWG equivalent) using your Omari Wallet through:</p>
+          <div class="blist">
+            <div class="bitem"><div class="bdot"></div>Cashing in at our various outlets or agents</div>
+            <div class="bitem"><div class="bdot"></div>ZIPIT – Receive (USD &amp; ZWG)</div>
+            <div class="bitem"><div class="bdot"></div>Receive money from abroad</div>
+            <div class="bitem"><div class="bdot"></div>Omari Visa Card Payments (Swipe, Tap &amp; Online Payments)</div>
+            <div class="bitem"><div class="bdot"></div>ZimSwitch Card Payments (Swipe, Tap &amp; Online Payments)</div>
+          </div>
+          <div class="callout">The more you spend, the more entries you earn into <strong>daily, weekly, monthly,</strong> and <strong>grand prize</strong> draws.</div>
         </div>
       </div>
-      <div class="prize-label">Monthly Draws</div>
-      <div class="pgrid">
-        <div class="pcard"><div class="pc-em">⛽</div><div class="pc-name">20L Fuel/Month</div><div class="pc-tier">For a Year</div></div>
-        <div class="pcard"><div class="pc-em">🛒</div><div class="pc-name">US$100 Grocery Voucher</div><div class="pc-tier">Monthly / Year</div></div>
-        <div class="pcard"><div class="pc-em">🍞</div><div class="pc-name">Loaf of Bread Daily</div><div class="pc-tier">For a Year</div></div>
-        <div class="pcard"><div class="pc-em">🥤</div><div class="pc-name">Crate of Drinks</div><div class="pc-tier">Monthly / Year</div></div>
-        <div class="pcard full"><div class="pc-em" style="margin-bottom:0;font-size:24px">💊</div><div><div class="pc-name" style="font-size:12px">US$50 Pharmacy Voucher Monthly</div><div class="pc-tier">For a Year</div></div></div>
-      </div>
-      <div class="prize-label">Daily Draws</div>
-      <div class="pgrid">
-        <div class="pcard"><div class="pc-em">📱</div><div class="pc-name">Airtime</div><div class="pc-tier">Daily Spin</div></div>
-        <div class="pcard"><div class="pc-em">🍽️</div><div class="pc-name">Meal Vouchers</div><div class="pc-tier">Daily Spin</div></div>
-        <div class="pcard"><div class="pc-em">💵</div><div class="pc-name">Cash Prizes</div><div class="pc-tier">Daily Spin</div></div>
-        <div class="pcard"><div class="pc-em">🎁</div><div class="pc-name">Branded Merchandise</div><div class="pc-tier">Daily Spin</div></div>
-        <div class="pcard"><div class="pc-em">⛽</div><div class="pc-name">Fuel Vouchers</div><div class="pc-tier">Daily Spin</div></div>
-        <div class="pcard"><div class="pc-em">🍽️</div><div class="pc-name">Meal Vouchers</div><div class="pc-tier">Weekly</div></div>
-      </div>
-      <img class="sec-img"
-        src="https://eu-images.contentstack.com/v3/assets/bltdd392fd32dda3ce8/blt57a9e17034c72417/6a422a51e369588ca70401bc/Transact_and_Win_4.webp"
-        alt="Prizes" onerror="this.style.display='none'">
     </div>
 
-    <!-- S4: Get a Card -->
-    <div class="sec sec-alt">
-      <div class="sec-eyebrow">Get Started</div>
-      <h2 class="sec-h2">Don't have an Omari Visa or ZimSwitch card yet?</h2>
-      <p class="sec-p">Get your Visa or ZimSwitch card at: Omari Remittance Centres and Kiosks, OK Zimbabwe, SPAR, TM Pick n Pay, CABS, Chicken Slice, MedOrange outlets, and other participating locations.</p>
-      <div class="outlets">
-        <span class="outlet">Omari Remittance Centres</span>
-        <span class="outlet">OK Zimbabwe</span>
-        <span class="outlet">SPAR</span>
-        <span class="outlet">TM Pick n Pay</span>
-        <span class="outlet">CABS</span>
-        <span class="outlet">Chicken Slice</span>
-        <span class="outlet">MedOrange</span>
-      </div>
-      <img class="sec-img"
-        src="https://eu-images.contentstack.com/v3/assets/bltdd392fd32dda3ce8/blt49387ab034a68ad7/6a42252aa6d47515270591b3/Transact_and_Win_2.webp"
-        alt="Get your card" onerror="this.style.display='none'">
-    </div>
-
-    <!-- S5: Need Help -->
+    <!-- S3: Prizes — image RIGHT -->
     <div class="sec">
-      <div class="sec-eyebrow">Support</div>
-      <h2 class="sec-h2">Need Help?</h2>
-      <p class="sec-p">Get in touch with us:</p>
-      <div class="clist">
-        <div class="crow"><div class="cic"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--grn)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg></div><div><div class="clbl">WhatsApp</div><div class="cval">+263 780 040 219 / +263 719 433 433</div></div></div>
-        <div class="crow"><div class="cic"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--grn)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg></div><div><div class="clbl">Visa Support WhatsApp</div><div class="cval">+263 787 707 707</div></div></div>
-        <div class="crow"><div class="cic"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--grn)"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></div><div><div class="clbl">Toll-Free</div><div class="cval">433 / 466</div></div></div>
-        <div class="crow"><div class="cic"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--grn)"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></div><div><div class="clbl">General Line</div><div class="cval">+263 8677 007437</div></div></div>
-        <div class="crow"><div class="cic"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--grn)"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 2l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg></div><div><div class="clbl">Email</div><div class="cval">contactus@oldmutual.co.zw</div></div></div>
+      <div class="sec-inner">
+        <div>
+          <div class="sec-eyebrow">Prizes</div>
+          <h2 class="sec-h2">What can you win?</h2>
+          <div class="grand">
+            <em>🏠</em>
+            <div>
+              <div class="grand-t">Residential Stand</div>
+              <div class="grand-s">US$10,000 cash · Trip to South Africa for Two · Trip to China</div>
+            </div>
+          </div>
+          <div class="ptitle">Monthly Draws</div>
+          <div class="pgrid">
+            <div class="pcard"><div class="em">⛽</div><div class="pname">20L Fuel/Month</div><div class="ptier">For a Year</div></div>
+            <div class="pcard"><div class="em">🛒</div><div class="pname">US$100 Grocery Voucher</div><div class="ptier">Monthly / Year</div></div>
+            <div class="pcard"><div class="em">🍞</div><div class="pname">Loaf of Bread Daily</div><div class="ptier">For a Year</div></div>
+            <div class="pcard"><div class="em">🥤</div><div class="pname">Crate of Drinks</div><div class="ptier">Monthly / Year</div></div>
+            <div class="pcard full"><em style="font-size:26px;flex-shrink:0">💊</em><div><div class="pname">US$50 Pharmacy Voucher Monthly</div><div class="ptier">For a Year</div></div></div>
+          </div>
+          <div class="ptitle">Daily Draws</div>
+          <div class="pgrid">
+            <div class="pcard"><div class="em">📱</div><div class="pname">Airtime</div><div class="ptier">Daily Spin</div></div>
+            <div class="pcard"><div class="em">🍽️</div><div class="pname">Meal Vouchers</div><div class="ptier">Daily Spin</div></div>
+            <div class="pcard"><div class="em">💵</div><div class="pname">Cash Prizes</div><div class="ptier">Daily Spin</div></div>
+            <div class="pcard"><div class="em">🎁</div><div class="pname">Branded Merch</div><div class="ptier">Daily Spin</div></div>
+            <div class="pcard"><div class="em">⛽</div><div class="pname">Fuel Vouchers</div><div class="ptier">Weekly</div></div>
+            <div class="pcard"><div class="em">🍽️</div><div class="pname">Meal Vouchers</div><div class="ptier">Weekly</div></div>
+          </div>
+        </div>
+        <img class="sec-img"
+          src="https://eu-images.contentstack.com/v3/assets/bltdd392fd32dda3ce8/blt57a9e17034c72417/6a422a51e369588ca70401bc/Transact_and_Win_4.webp"
+          alt="Prizes" onerror="this.style.display='none'">
       </div>
-      <img class="sec-img"
-        src="https://eu-images.contentstack.com/v3/assets/bltdd392fd32dda3ce8/blt43bafc73d3036d3d/6785198d0c030d1664b2a7ce/Get_Help_5.jpg"
-        alt="Need Help" onerror="this.style.display='none'">
     </div>
 
-    <div style="height:30px;flex-shrink:0"></div>
+    <!-- S4: Get a Card — image LEFT (alt bg) -->
+    <div class="sec alt">
+      <div class="sec-inner">
+        <img class="sec-img"
+          src="https://eu-images.contentstack.com/v3/assets/bltdd392fd32dda3ce8/blt49387ab034a68ad7/6a42252aa6d47515270591b3/Transact_and_Win_2.webp"
+          alt="Get your card" onerror="this.style.display='none'">
+        <div>
+          <div class="sec-eyebrow">Get Started</div>
+          <h2 class="sec-h2">Don't have an Omari Visa or ZimSwitch card yet?</h2>
+          <p class="sec-body">Get your Visa or ZimSwitch card at:</p>
+          <div class="outlets">
+            <span class="outlet">Omari Remittance Centres</span>
+            <span class="outlet">OK Zimbabwe</span>
+            <span class="outlet">SPAR</span>
+            <span class="outlet">TM Pick n Pay</span>
+            <span class="outlet">CABS</span>
+            <span class="outlet">Chicken Slice</span>
+            <span class="outlet">MedOrange</span>
+          </div>
+          <p class="sec-body" style="margin-top:10px;font-size:12px;color:var(--ink4)">And other participating locations nationwide.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- S5: Need Help — image RIGHT -->
+    <div class="sec">
+      <div class="sec-inner">
+        <div>
+          <div class="sec-eyebrow">Support</div>
+          <h2 class="sec-h2">Need Help?</h2>
+          <p class="sec-body">Get in touch with us:</p>
+          <div class="clist">
+            <div class="crow"><div class="cic"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--grn)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg></div><div><div class="clbl">WhatsApp</div><div class="cval">+263 780 040 219 / +263 719 433 433</div></div></div>
+            <div class="crow"><div class="cic"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--grn)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg></div><div><div class="clbl">Visa Support WhatsApp</div><div class="cval">+263 787 707 707</div></div></div>
+            <div class="crow"><div class="cic"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--grn)"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></div><div><div class="clbl">Toll-Free</div><div class="cval">433 / 466</div></div></div>
+            <div class="crow"><div class="cic"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--grn)"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></div><div><div class="clbl">General Line</div><div class="cval">+263 8677 007437</div></div></div>
+            <div class="crow"><div class="cic"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--grn)"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 2l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg></div><div><div class="clbl">Email</div><div class="cval">contactus@oldmutual.co.zw</div></div></div>
+          </div>
+        </div>
+        <img class="sec-img"
+          src="https://eu-images.contentstack.com/v3/assets/bltdd392fd32dda3ce8/blt43bafc73d3036d3d/6785198d0c030d1664b2a7ce/Get_Help_5.jpg"
+          alt="Need Help" onerror="this.style.display='none'">
+      </div>
+    </div>
+
+    <div style="height:32px"></div>
+  </div><!-- /body -->
+</div><!-- /app -->
+
+<!-- FULL PAGE ENTRY SHEET -->
+<div id="overlay"></div>
+<div id="sheet" role="dialog" aria-modal="true" aria-label="Enter your O'mari number">
+  <div class="sheet-header">
+    <h2>Enter your O'mari number</h2>
+    <button class="sheet-close" id="closeBtn" aria-label="Close">&#215;</button>
   </div>
-
-</div>
-
-<!-- SCRIM -->
-<div id="scrim"></div>
-
-<!-- BOTTOM SHEET -->
-<div id="sheet">
-  <div class="sheet-drag"></div>
-  <div class="sheet-inner">
-    <div class="sheet-title">Enter your O'mari number</div>
-    <div class="sheet-sub">We'll verify your number and confirm your entries</div>
-    <div class="nfield" id="nfield">
-      <div class="npre">
-        <img src="https://eu-images.contentstack.com/v3/assets/bltdd392fd32dda3ce8/blt652fa4bd468b6c6a/65eedf0ce5630f040aca2115/flag-zimbabwe.svg"
-          width="22" height="22" alt="ZW" onerror="this.outerHTML='<span style=\'font-size:20px;line-height:1\'>🇿🇼</span>'">
-        <span class="ncode">+263</span>
+  <div class="sheet-body">
+    <p class="sheet-desc">We'll verify your O'mari number and confirm your entry into the Transact &amp; Win promotion.</p>
+    <div class="nwrap">
+      <label for="ni">O'mari mobile number</label>
+      <div class="nfield" id="nfield">
+        <div class="npre">
+          <img src="https://eu-images.contentstack.com/v3/assets/bltdd392fd32dda3ce8/blt652fa4bd468b6c6a/65eedf0ce5630f040aca2115/flag-zimbabwe.svg"
+            width="24" height="24" alt="ZW" id="nflagImg">
+          <span class="ncode">+263</span>
+        </div>
+        <input id="ni" type="tel" inputmode="numeric" pattern="[0-9]*"
+          placeholder="774 707 707" maxlength="9" autocomplete="tel-national"
+          aria-label="O'mari phone number">
       </div>
-      <input id="ni" type="tel" inputmode="numeric" pattern="[0-9]*" placeholder="774 707 707" maxlength="9" autocomplete="tel-national">
+      <div id="nhint">Dial *707# or WhatsApp 0774 707 707 to register</div>
     </div>
-    <div id="nhint">Dial *707# or WhatsApp 0774 707 707 to register</div>
-    <button class="sheet-btn" id="sheetBtn" disabled>
+    <button class="sheet-submit" id="subBtn" disabled>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-      <span id="sheetLbl">Enter your number</span>
+      <span id="subLbl">Enter your number</span>
     </button>
+    <p style="font-size:11px;color:var(--ink4);text-align:center;margin-top:12px;line-height:1.6">By entering, you agree to O'mari's <a href="https://www.oldmutual.co.zw/omari-terms-and-conditions/" style="color:var(--grn);text-decoration:underline">Terms &amp; Conditions</a> and Privacy Policy.</p>
   </div>
 </div>
 
 <script>
 'use strict';
 function hap(t){try{if(navigator.vibrate)navigator.vibrate(t);}catch(e){}}
-function ripple(btn,e){
-  var r=btn.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2;
-  var rip=document.createElement('span');rip.className='rip';
-  rip.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;position:absolute;';
-  btn.appendChild(rip);rip.addEventListener('animationend',function(){rip.remove();});
-}
+function addRipple(btn,e){var r=btn.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2;var rip=document.createElement('span');rip.className='rip';rip.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;position:absolute;';btn.appendChild(rip);rip.addEventListener('animationend',function(){rip.remove();});}
+
+/* ── LOGO — load from CDN, fallback to SVG ── */
+var logoImg=document.getElementById('omLogo');
+logoImg.addEventListener('error',function(){
+  this.outerHTML='<svg class="logo" width="120" height="40" viewBox="0 0 180 60" xmlns="http://www.w3.org/2000/svg"><rect width="180" height="60" rx="4" fill="#003366"/><text x="16" y="38" font-family="DM Sans,sans-serif" font-size="18" font-weight="800" fill="#fff">Old Mutual</text></svg>';
+});
 
 /* ── SHEET ── */
-var scrim=document.getElementById('scrim');
+var overlay=document.getElementById('overlay');
 var sheet=document.getElementById('sheet');
-var nfield=document.getElementById('nfield');
 var ni=document.getElementById('ni');
+var nfield=document.getElementById('nfield');
 var nhint=document.getElementById('nhint');
-var sheetBtn=document.getElementById('sheetBtn');
-var sheetLbl=document.getElementById('sheetLbl');
+var subBtn=document.getElementById('subBtn');
+var subLbl=document.getElementById('subLbl');
 var numOK=false,verTO=null;
 
+/* Flag fallback */
+document.getElementById('nflagImg').addEventListener('error',function(){this.outerHTML='<span class="nflag">🇿🇼</span>';});
+
 function openSheet(){
-  scrim.style.display='block';
-  sheet.style.display='block';
+  overlay.style.display='block';
+  sheet.style.display='flex';
   requestAnimationFrame(function(){requestAnimationFrame(function(){
-    scrim.style.opacity='1';
-    sheet.style.transform='translateY(0)';
+    overlay.style.opacity='1';
+    sheet.classList.add('open');
   });});
   setTimeout(function(){ni.focus();},350);
+  document.body.style.overflow='hidden';
   hap(8);
 }
 function closeSheet(){
-  scrim.style.opacity='0';
-  sheet.style.transform='translateY(100%)';
-  setTimeout(function(){scrim.style.display='none';sheet.style.display='none';},280);
+  sheet.classList.remove('open');
+  overlay.style.opacity='0';
+  setTimeout(function(){
+    overlay.style.display='none';
+    sheet.style.display='none';
+    document.body.style.overflow='';
+  },320);
 }
 
-scrim.addEventListener('click',closeSheet);
-
-/* CTA button */
-document.getElementById('ctaBtn').addEventListener('click',function(e){
-  hap(8);ripple(this,e);
-  setTimeout(openSheet,80);
-});
+document.getElementById('ctaBtn').addEventListener('click',function(e){addRipple(this,e);setTimeout(openSheet,60);});
+document.getElementById('closeBtn').addEventListener('click',closeSheet);
+overlay.addEventListener('click',closeSheet);
 
 /* Number input */
 ni.addEventListener('input',function(){
   var v=this.value.replace(/\D/g,'').slice(0,9);
   this.value=v;
-  clearTimeout(verTO);numOK=false;sheetBtn.disabled=true;
-  nhint.className='';
-  if(!v.length){nfield.className='nfield';nhint.textContent="Dial *707# or WhatsApp 0774 707 707 to register";sheetLbl.textContent='Enter your number';return;}
+  clearTimeout(verTO);numOK=false;subBtn.disabled=true;
+  nhint.className='';nhint.style.color='';
+  if(!v.length){
+    nfield.className='nfield';
+    nhint.textContent="Dial *707# or WhatsApp 0774 707 707 to register";
+    subLbl.textContent='Enter your number';return;
+  }
   nfield.className='nfield foc';
   if(v.length===9){
     nhint.textContent='Verifying…';
     verTO=setTimeout(function(){
-      numOK=true;nfield.className='nfield ok';
-      nhint.className='ok';nhint.textContent="✓ O'mari number verified";
-      sheetBtn.disabled=false;sheetLbl.textContent='Confirm & Continue';
+      numOK=true;
+      nfield.className='nfield ok';
+      nhint.className='ok';
+      nhint.textContent="\u2713 O'mari number verified";
+      subBtn.disabled=false;
+      subLbl.textContent='Confirm & Continue';
       hap([8,30,8]);
       sessionStorage.setItem('omariRecipient',JSON.stringify({
-        raw:v,display:'+263 '+v.slice(0,2)+'\u2022\u2022\u2022\u2022\u2022'+v.slice(-2)
+        raw:v,
+        display:'+263 '+v.slice(0,2)+'\u2022\u2022\u2022\u2022\u2022'+v.slice(-2)
       }));
     },800);
-  } else {nhint.textContent="Enter your 9-digit O'mari number";sheetLbl.textContent='Enter your number';}
+  } else {
+    nhint.textContent="Enter your 9-digit O'mari number";
+    subLbl.textContent='Enter your number';
+  }
 });
 
-sheetBtn.addEventListener('click',function(e){
+subBtn.addEventListener('click',function(e){
   if(!numOK)return;
-  hap(18);ripple(this,e);
-  setTimeout(function(){window.location.href='omari-login.html';},120);
+  addRipple(this,e);
+  hap(18);
+  setTimeout(function(){window.location.href='login.html';},100);
 });
+
+/* Keyboard: close on Escape */
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet();});
 </script>
 </body>
 </html>

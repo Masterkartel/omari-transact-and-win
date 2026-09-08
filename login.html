@@ -332,7 +332,7 @@ body,.body{background:#F1F2F2 !important}
             <input id="otpIn" type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="6" style="position:absolute;opacity:0;pointer-events:none;width:1px;height:1px">
             <div class="pin-err" id="otpErr"></div>
             <div style="font-size:11px;color:var(--ink3);text-align:center;display:none" id="otoast">OTP received for <b id="otoastNum"></b></div>
-            <div class="timer-row"><span>Expires in</span><b id="timer">05:00</b></div>
+            <div class="timer-row"><span>Expires in</span><b id="timer">15:00</b></div>
             <button class="pin-act" id="resendBtn" style="opacity:.4;pointer-events:none">Resend OTP</button>
           </div>
         </div>
@@ -426,7 +426,7 @@ function confirmOTP(){
 }
 
 var timerInt=null;
-function startTimer(){var secs=300;function tick(){var m=Math.floor(secs/60),s=secs%60;document.getElementById('timer').textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;if(secs<=0){clearInterval(timerInt);enableResend();return;}secs--;}tick();timerInt=setInterval(tick,1000);}
+function startTimer(){var secs=900;function tick(){var m=Math.floor(secs/60),s=secs%60;document.getElementById('timer').textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;if(secs<=0){clearInterval(timerInt);enableResend();return;}secs--;}tick();timerInt=setInterval(tick,1000);}
 function enableResend(){var r=document.getElementById('resendBtn');r.style.opacity='1';r.style.pointerEvents='auto';r.addEventListener('click',function(){otpVal='';renderOTP();var ob=document.getElementById('otpBtn');if(ob)ob.disabled=true;clearInterval(timerInt);startTimer();r.style.opacity='.4';r.style.pointerEvents='none';proceed();},{once:true});}
 function showOtoast(m){var t=document.getElementById('otoast'),n=document.getElementById('otoastNum');if(!t)return;n.textContent=m;t.style.display='block';setTimeout(function(){t.style.display='none';},4000);}
 
